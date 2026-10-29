@@ -12,7 +12,7 @@ Design and copy follow [these standards](https://github.com/lyhjeremy/lyhjeremy/
 - At Atlanta (ATL), the busiest hub, a 45-minute connection was missed 14% of the time and a 95% chance took 130 minutes. At 45 minutes the worst hub was Washington National (23%) and the best Baltimore (12%).
 - 3.0% of pairs failed on a cancellation or diversion, which no layover fixes. Counting those, 22 of 30 hubs reach 95% within 180 minutes. If both flights operate, 95% takes 70 (BWI) to 110 (PHL) minutes, and 60 minutes for an 8 am arrival against 120 for a 7 pm one at the median hub.
 - Reading only the inbound delay overstated the miss rate at 45 minutes by 2.8 points (20.0% against 17.2%). When the inbound was 30 or more minutes late, the outbound left 15 or more minutes late 40% of the time, against 24% overall. From about 120 minutes the shortcut understates instead, because it ignores outbound cancellations.
-- Tested on March to August 2026 after fitting on the 30 months before, the logistic model had a calibration error of 0.91 points (Brier 0.0924), the cell-average lookup 0.96 (0.0926) and the inbound-only shortcut 2.02 (0.0940). The tool ships the model, refitted on all 36 months.
+- Tested on March to August 2026 after fitting on the 30 months before, the logistic model had a calibration error of 0.86 points (Brier 0.0926), the cell-average lookup 0.93 (0.0927) and the inbound-only shortcut 2.05 (0.0941). The tool ships the model, refitted on all 36 months.
 - Calendar 2019 looked much the same: 17% missed at 45 minutes.
 
 Connections are constructed from flight pairs, not real bookings. Limits are listed in the write-up.
@@ -32,7 +32,7 @@ python scripts/fetch_bts.py        # 48 monthly zips (about 38 MB each) to parqu
 python -m pytest -q tests          # pair builder tests
 python scripts/build_pairs.py      # hubs, 90.0 million sampled pairs in the cache
 python scripts/analyze.py          # tables/, results/summary.json
-python scripts/export_web.py       # assets/tool.json (1,566 KB)
+python scripts/export_web.py       # assets/tool.json (1,564 KB)
 python scripts/make_figures.py     # figures/
 python scripts/export_numbers.py   # site/numbers.json
 python scripts/build_site.py       # index.html, README.md, write-up fragment

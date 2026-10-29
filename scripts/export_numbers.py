@@ -124,6 +124,13 @@ def build():
     n["driver1"], n["driver2"], n["driver3"] = (FACTOR[d["factor"]] for d in drv[:3])
     n["driverLast"] = FACTOR[drv[-1]["factor"]]
     n["Driver1"] = n["driver1"][0].upper() + n["driver1"][1:]
+    last = drv[-1]
+    n["driverLastSentence"] = (
+        f"Dropping {FACTOR[last['factor']]} made the test score slightly better, so it adds nothing out of sample."
+        if last["increase"] < 0 else
+        f"{FACTOR[last['factor']][0].upper() + FACTOR[last['factor']][1:]} added the least.")
+    small = [FACTOR[d["factor"]] for d in drv if abs(d["increase"]) < 0.001]
+    n["driverSmall"] = " and ".join(small) if small else "none"
     n["driver1inc"] = f"{drv[0]['increase']:.4f}"
 
     # data and pairs

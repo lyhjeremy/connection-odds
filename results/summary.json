@@ -71,8 +71,8 @@
  "status_share": {
   "0": 0.9701068038763357,
   "3": 0.011935038060826596,
-  "1": 0.01516564010654671,
-  "2": 0.0027925179562909904
+  "2": 0.0027925179562909904,
+  "1": 0.01516564010654671
  },
  "all": {
   "30": {
@@ -1087,8 +1087,8 @@
     "gap": -0.00692165598174508
    }
   ],
-  "corr_all": 0.15002593123626892,
-  "corr_all_spearman": 0.1639637858441154,
+  "corr_all": 0.15002593123626903,
+  "corr_all_spearman": 0.16396378584411175,
   "corr_min": {
    "hub": "SLC",
    "corr": 0.05210213712455647,
@@ -1778,34 +1778,34 @@
   "n_test": 2000000,
   "scores": {
    "naive": {
-    "brier": 0.09402642057069724,
-    "ece": 0.02018331968866037,
-    "logloss": 0.32652237266576367,
-    "brier_climatology": 0.09818885272974998,
-    "brier_skill": 0.042392105043830175,
+    "brier": 0.09413569495640962,
+    "ece": 0.020474442341554742,
+    "logloss": 0.32694458165332724,
+    "brier_climatology": 0.098387109375,
+    "brier_skill": 0.04321109183507177,
     "n": 2000000,
-    "observed": 0.1103705,
-    "predicted": 0.1155999718564758
+    "observed": 0.110625,
+    "predicted": 0.11576829576157238
    },
    "lookup": {
-    "brier": 0.09260143987175667,
-    "ece": 0.009572331627507653,
-    "logloss": 0.32260002065958526,
-    "brier_climatology": 0.09818885272974998,
-    "brier_skill": 0.0569047575428121,
+    "brier": 0.09272724891195752,
+    "ece": 0.009307290399440005,
+    "logloss": 0.3230128309985073,
+    "brier_climatology": 0.098387109375,
+    "brier_skill": 0.05752644324034428,
     "n": 2000000,
-    "observed": 0.1103705,
-    "predicted": 0.1038107152606991
+    "observed": 0.110625,
+    "predicted": 0.10394826208686278
    },
    "model": {
-    "brier": 0.0924389525487659,
-    "ece": 0.009140485281945667,
-    "logloss": 0.321304343634447,
-    "brier_climatology": 0.09818885272974998,
-    "brier_skill": 0.05855960245110314,
+    "brier": 0.09258340866572912,
+    "ece": 0.00861484143353416,
+    "logloss": 0.32166626697124356,
+    "brier_climatology": 0.098387109375,
+    "brier_skill": 0.058988425883620854,
     "n": 2000000,
-    "observed": 0.1103705,
-    "predicted": 0.10505923324540117
+    "observed": 0.110625,
+    "predicted": 0.10532009615825699
    }
   },
   "best": "model",
@@ -1830,42 +1830,42 @@
  "drivers": [
   {
    "factor": "layover",
-   "logloss_without": 0.3370587252956428,
-   "logloss_full": 0.32348804406162335,
-   "increase": 0.013570681234019444,
-   "brier_increase": 0.003003641336191798
+   "logloss_without": 0.3366346554207356,
+   "logloss_full": 0.32190978912890295,
+   "increase": 0.014724866291832672,
+   "brier_increase": 0.0031996841651079078
   },
   {
    "factor": "arrival hour",
-   "logloss_without": 0.328203909157451,
-   "logloss_full": 0.32348804406162335,
-   "increase": 0.004715865095827665,
-   "brier_increase": 0.0011652360955561741
+   "logloss_without": 0.32695625332403233,
+   "logloss_full": 0.32190978912890295,
+   "increase": 0.005046464195129385,
+   "brier_increase": 0.0012508006760332813
   },
   {
    "factor": "hub and airline",
-   "logloss_without": 0.3254367808204761,
-   "logloss_full": 0.32348804406162335,
-   "increase": 0.0019487367588527649,
-   "brier_increase": 0.00029669738207764584
-  },
-  {
-   "factor": "weekday",
-   "logloss_without": 0.32339058200655074,
-   "logloss_full": 0.32348804406162335,
-   "increase": -9.746205507260575e-05,
-   "brier_increase": -4.6048091445774486e-05
+   "logloss_without": 0.3249757654143221,
+   "logloss_full": 0.32190978912890295,
+   "increase": 0.0030659762854191586,
+   "brier_increase": 0.0004641109733573706
   },
   {
    "factor": "month",
-   "logloss_without": 0.32281516830232293,
-   "logloss_full": 0.32348804406162335,
-   "increase": -0.0006728757593004175,
-   "brier_increase": -0.00016959886029778437
+   "logloss_without": 0.32240219595997777,
+   "logloss_full": 0.32190978912890295,
+   "increase": 0.0004924068310748209,
+   "brier_increase": 3.262685008496857e-05
+  },
+  {
+   "factor": "weekday",
+   "logloss_without": 0.3218650622030605,
+   "logloss_full": 0.32190978912890295,
+   "increase": -4.472692584245319e-05,
+   "brier_increase": -1.854213319482656e-05
   }
  ],
- "tool_json_bytes": 1603577,
- "tool_json_gzip_bytes": 523511,
+ "tool_json_bytes": 1601655,
+ "tool_json_gzip_bytes": 522385,
  "tool_cells": 74341,
  "tool_cells_pairs_share": 0.8962559219257892
 }

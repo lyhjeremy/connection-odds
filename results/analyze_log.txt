@@ -1,11 +1,11 @@
 pairs kept 89980442 hub-airlines 196 0s
 eda done 1s
 curves done 5s
-shortcut done 19s
-2019 done 19s
-lookups predicted 24s
-model fitted 36s
-naive {"brier": 0.09403, "ece": 0.02018, "logloss": 0.32652, "brier_climatology": 0.09819, "brier_skill": 0.04239, "n": 2000000, "observed": 0.11037, "predicted": 0.1156}
-lookup {"brier": 0.0926, "ece": 0.00957, "logloss": 0.3226, "brier_climatology": 0.09819, "brier_skill": 0.0569, "n": 2000000, "observed": 0.11037, "predicted": 0.10381}
-model {"brier": 0.09244, "ece": 0.00914, "logloss": 0.3213, "brier_climatology": 0.09819, "brier_skill": 0.05856, "n": 2000000, "observed": 0.11037, "predicted": 0.10506}
-drivers done 41s
+shortcut done 17s
+2019 done 17s
+lookups predicted 22s
+model fitted 33s
+naive {"brier": 0.09414, "ece": 0.02047, "logloss": 0.32694, "brier_climatology": 0.09839, "brier_skill": 0.04321, "n": 2000000, "observed": 0.11063, "predicted": 0.11577}
+lookup {"brier": 0.09273, "ece": 0.00931, "logloss": 0.32301, "brier_climatology": 0.09839, "brier_skill": 0.05753, "n": 2000000, "observed": 0.11063, "predicted": 0.10395}
+model {"brier": 0.09258, "ece": 0.00861, "logloss": 0.32167, "brier_climatology": 0.09839, "brier_skill": 0.05899, "n": 2000000, "observed": 0.11063, "predicted": 0.10532}
+drivers done 36s

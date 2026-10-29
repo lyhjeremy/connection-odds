@@ -169,8 +169,13 @@ def backoff_predict(train: pl.LazyFrame, test: pl.DataFrame, outcome: pl.Expr) -
     return out["pred"].to_numpy()
 
 
+SORT = ["date", "hub", "mkt", "arr_hour", "layover", "status", "slack", "arr_delay", "dep_delay", "op_in", "op_out"]
+
+
 def sample(p: pl.LazyFrame, n: int, seed: int) -> pl.DataFrame:
-    df = p.collect()
+    # Multi-file scans and joins do not promise a row order, so sort before the seeded
+    # draw; rows that tie on every column are identical, so the sample is reproducible.
+    df = p.sort(SORT).collect()
     if df.height > n:
         df = df.sample(n, seed=seed)
     return features(df.with_columns(month=pl.col("date").dt.month()))
