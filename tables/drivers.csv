@@ -1,0 +1,6 @@
+factor,logloss_without,logloss_full,increase,brier_increase
+layover,0.33706,0.32349,0.01357,0.00300
+arrival hour,0.32820,0.32349,0.00472,0.00117
+hub and airline,0.32544,0.32349,0.00195,0.00030
+weekday,0.32339,0.32349,-0.00010,-0.00005
+month,0.32282,0.32349,-0.00067,-0.00017

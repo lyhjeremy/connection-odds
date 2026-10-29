@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connection Odds: how often a US domestic connection is missed</title>
+<meta name="description" content="Estimate the chance of missing a connection at 30 US hubs by airline, arrival hour, month and layover, from 90.0 million flight pairs built from BTS on-time data, September 2023 to August 2026. Runs in your browser.">
+<meta property="og:title" content="Connection Odds">
+<meta property="og:description" content="At Atlanta, a 45-minute connection was missed 14% of the time. A 95% chance took 130 minutes.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lyhjeremy.github.io/connection-odds/">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div class="overview-bar" data-overview-link><div class="wrap">Read the full write-up: <a href="overview/">how the odds were built and tested</a></div></div>
+<div class="wrap">
+  <header class="masthead">
+    <p class="name">Connection Odds</p>
+    <p class="meta">BTS on-time data, Sep 2023 to Aug 2026 · <a href="https://github.com/lyhjeremy/connection-odds">Code</a></p>
+  </header>
+
+  <header class="intro">
+    <p class="kicker">Missed connections at 30 US hubs</p>
+    <h1>How long a layover do you need?</h1>
+    <p class="lede">At Atlanta, the busiest hub, a 45-minute connection was missed 14% of the time between September 2023 and August 2026, counting cancellations. Getting to a 95% chance took 130 minutes. Pick a hub, an airline and a time below to see the odds for your trip.</p>
+  </header>
+
+  <main>
+    <section id="tool" class="app" aria-busy="true" aria-label="Connection odds lookup">
+      <div class="inputs">
+        <p class="sec">Your connection</p>
+        <div class="field">
+          <label for="hub">Connecting at</label>
+          <select id="hub" class="skeleton"></select>
+        </div>
+        <div class="field">
+          <label for="air">Airline on the ticket</label>
+          <select id="air" class="skeleton"></select>
+        </div>
+        <div class="field">
+          <label for="hour">Scheduled arrival at the hub</label>
+          <select id="hour" class="skeleton"></select>
+        </div>
+        <div class="field">
+          <label for="month">Month</label>
+          <select id="month" class="skeleton"></select>
+        </div>
+        <div class="field">
+          <label for="lay">Scheduled layover <span class="val" id="lay-val">45 min</span></label>
+          <input type="range" id="lay" min="30" max="180" step="5" value="45">
+        </div>
+        <div class="field">
+          <label for="w">Gate-to-gate walk <span class="val" id="w-val">20 min</span></label>
+          <input type="range" id="w" min="10" max="30" step="5" value="20">
+          <span class="hint">Boarding closes 10 minutes before pushback, so you need this walk plus 10 minutes between arrival and departure.</span>
+        </div>
+      </div>
+      <div class="out">
+        <div class="verdict">
+          <div class="gauge skeleton" id="big">00%</div>
+          <p class="big-sub" id="big-sub">Loading the data file for 30 hubs.</p>
+          <p class="src" id="src"></p>
+          <p class="grey-note" id="grey-note" hidden>Under 35 minutes: airlines set a minimum connection time at each airport and will not sell a shorter connection. This tool does not have those tables, so it greys these layovers as a reminder that they may not be bookable.</p>
+        </div>
+        <dl class="need">
+          <div><dt>90% chance</dt><dd id="n90">&nbsp;</dd></div>
+          <div><dt>95% chance</dt><dd id="n95">&nbsp;</dd></div>
+          <div><dt>99% chance</dt><dd id="n99">&nbsp;</dd></div>
+        </dl>
+        <div id="chart" class="skeleton"></div>
+        <p class="legend"><span class="k1"></span>model estimate &nbsp; <span class="k2"></span>observed rate in each 15-minute layover cell, with its 95% interval (cells with 200 or more pairs)</p>
+      </div>
+    </section>
+
+    <section class="block prose">
+      <h2>What the numbers mean</h2>
+      <p>The data has flights, not passenger itineraries. Every connection here is a pair of real flights: an arrival and a departure at the same hub, sold by the same airline, 30 to 180 minutes apart, going somewhere other than where the arrival came from, and not flown by the same aircraft. A pair counts as missed if either flight was cancelled, the inbound was diverted, or the inbound reached the gate too late to walk to the outbound before its door closed. Airlines do not sell every one of these pairs, and they sometimes hold a departure for connecting passengers, which shows up here as an ordinary outbound delay.</p>
+      <p>The headline figure comes from the logistic model, which was slightly better calibrated on March to August 2026 than the other two estimators tested (calibration error 0.91 points, against 0.96 for cell averages and 2.02 for reading the inbound flight alone). Its inputs are the hub, airline, arrival hour, month and layover; the weekday is averaged out. The observed cell rates are shown beside it. Their intervals treat each pair as independent, which they are not (one arrival sits in up to ten pairs, and flights on the same day share weather), so the true uncertainty is wider.</p>
+      <div class="facts">
+        <div class="fact"><div class="n">17%</div><p>of 45-minute connections across all 30 hubs were missed. At 90 minutes it was 8%.</p></div>
+        <div class="fact"><div class="n">3.0%</div><p>of pairs failed because a flight was cancelled or diverted. No layover removes that, so a 95% chance needed 155 minutes overall, and no layover up to 180 minutes reached 99%.</p></div>
+        <div class="fact"><div class="n">2.8 points</div><p>by which reading only the inbound delay overstated the miss rate at 45 minutes (20.0% against 17.2%). When the inbound was 30 or more minutes late, the outbound left 15 or more minutes late 40% of the time, against 24% overall.</p></div>
+        <div class="fact"><div class="n">23% vs 12%</div><p>missed at 45 minutes at Washington National (DCA), the worst of the 30 hubs, against Baltimore (BWI), the best.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Data: US Bureau of Transportation Statistics, Marketing Carrier On-Time Performance, 1 September 2023 to 31 August 2026: 22,957,747 flights, 89,980,442 sampled connection pairs. Public domain.</p>
+    <p>The tool runs entirely in your browser. It downloads one data file from this site and sends nothing you choose anywhere. <a href="privacy/">Privacy</a> · <a href="overview/">Write-up</a> · <a href="https://github.com/lyhjeremy/connection-odds">Source on GitHub</a> (MIT)</p>
+  </footer>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

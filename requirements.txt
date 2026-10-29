@@ -1,0 +1,6 @@
+polars>=1.30
+pyarrow
+numpy
+scipy
+scikit-learn
+pytest

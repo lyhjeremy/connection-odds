@@ -1,0 +1,301 @@
+<!--spec {
+  "out": "/Users/jeremylee/My Drive/6. Data Projects/Project 39 Connection Odds/connection-odds/overview/index.html",
+  "url": "https://lyhjeremy.github.io/connection-odds/overview/",
+  "title": "Connection Odds: how often a US domestic connection is missed",
+  "description": "From {{pairsM}} million flight pairs at 30 US hubs, September 2023 to August 2026: a 45-minute connection was missed {{all45}}% of the time, and at {{topHubName}} a 95% chance took {{topHub95}} minutes. Reading only the inbound delay overstated the risk by {{sc45gap}} points.",
+  "og_title": "Connection Odds",
+  "og_description": "How long a layover you need at 30 US hubs, built from every domestic flight BTS recorded from September 2023 to August 2026.",
+  "family": "workshop",
+  "extra_css": ""
+} -->
+
+<style>
+  .calc { border: 1px solid var(--edge); background: var(--card); margin: 28px 0 0; }
+  .calc-head { display: flex; justify-content: space-between; gap: 6px 12px; flex-wrap: wrap; padding: 9px 16px;
+               border-bottom: 1px solid var(--edge); font: 600 11.5px/1.4 var(--mono); letter-spacing: .1em;
+               text-transform: uppercase; color: var(--muted); }
+  .calc-body { padding: 16px 16px 10px; }
+  .calc .calc-title { font: 600 clamp(19px, 2.4vw, 24px)/1.25 var(--display); color: var(--ink); margin: 0 0 4px; max-width: none; }
+  .calc .calc-foot { margin: 0; max-width: none; padding: 10px 16px 12px; border-top: 1px solid var(--rule);
+                     font: 14px/1.5 var(--sans); color: var(--muted); }
+  .calc svg { display: block; width: 100%; height: auto; }
+  .panels { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px 22px; }
+  .hscroll { overflow-x: auto; }
+  .hscroll svg { min-width: 600px; }
+  .lg { display: flex; flex-wrap: wrap; gap: 4px 16px; font: 12px var(--mono); color: var(--ink2); margin: 0 0 10px; }
+  .lg span::before { content: ""; display: inline-block; width: 18px; height: 0; margin-right: 6px; vertical-align: 3px; border-top: 2px solid var(--accent); }
+  .lg .l0::before { border-top: 1.5px dashed var(--muted); }
+  .lg .l2::before { border-top-color: var(--accent2); }
+  .hubs { min-width: 860px; font-size: 14px; }
+  .hubs td.num, .hubs th.num { text-align: right; font-family: var(--mono); }
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="logo">Connection Odds</div>
+    <div class="tagline">30 US hubs / Sep 2023 to Aug 2026</div>
+  </header>
+
+  <section class="hero">
+    <p class="kicker">Missed connections, built from flight records</p>
+    <h1>A 45-minute connection was missed about one time in {{all45OneIn}}</h1>
+    <p class="hero-sub">
+      Across the 30 busiest US airports, {{all45}}% of 45-minute connections
+      failed between September 2023 and August 2026, counting cancellations.
+      At {{topHubName}} it was {{topHub45}}%, and a 95% chance took
+      {{topHub95}} minutes. Judging the risk from the inbound flight alone
+      overstated it by {{sc45gap}} points at 45 minutes, because the outbound
+      flight tends to be late on the same days. The numbers come from
+      {{flightsM}} million domestic flights recorded by the US Bureau of
+      Transportation Statistics, paired into {{pairsM}} million connections.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="../">Look up your connection</a>
+      <a class="textlink" href="https://github.com/lyhjeremy/connection-odds">Code and tables</a>
+    </div>
+    <div class="claims">
+      <div class="claim">
+        <div class="n">{{all45}}% / {{all90}}%</div>
+        <p>missed at 45 and at 90 minutes, all 30 hubs together. At 30 minutes it was {{all30}}%.</p>
+      </div>
+      <div class="claim">
+        <div class="n">{{allL95}} min</div>
+        <p>for a 95% chance across all hubs. {{allFloor}}% of pairs fail on a cancellation or diversion that no layover fixes; if both flights operate, {{allL95flown}} minutes is enough.</p>
+      </div>
+      <div class="claim">
+        <div class="n">+{{sc45gap}} points</div>
+        <p>by which the inbound-only shortcut overstated the miss rate at 45 minutes ({{sc45naive}}% against {{sc45paired}}%). From {{scCross}} minutes on, it understates, because it ignores outbound cancellations.</p>
+      </div>
+      <div class="claim">
+        <div class="n">{{flownMedian8}} vs {{flownMedian19}}</div>
+        <p>minutes needed for 95% (if both fly) at the median hub, arriving at 8 am against 7 pm. Delay builds through the day.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+<div class="route">
+
+  <section class="stop stop--key">
+    <p class="eyebrow">Method</p>
+    <h2>Connections are built from flight pairs, not bookings</h2>
+    <p>
+      The BTS on-time table lists flights, not passengers. Every connection
+      here is constructed. At each hub, an arriving flight is paired with
+      every departure on the same marketing airline (the name on the ticket,
+      so a SkyWest-operated United Express leg counts as United) that leaves
+      30 to 180 minutes later on the schedule and goes somewhere other than
+      where the arrival came from. Pairs flown by the same aircraft are dropped,
+      since that plane cannot leave without its own passengers; that removed
+      {{sameTail}}% of {{candidatesM}} million candidates, up to
+      {{sameTailMax}}% at {{sameTailMaxHub}}. To keep every arrival equally
+      represented, one departure is drawn at random for each arrival in each
+      15-minute layover band, leaving {{pairsM}} million pairs on
+      {{hubAirlines}} hub and airline combinations.
+    </p>
+    <p>
+      A pair is missed if the inbound was cancelled or diverted, if the outbound
+      was cancelled, or if the inbound reached the gate too late: actual arrival
+      plus a walk of W minutes later than actual departure minus D minutes,
+      where D is when the door closes. The defaults are W = 20 and D = 10, so
+      a connection needs 30 minutes between gate arrival and pushback. The
+      lookup tool lets you change W.
+    </p>
+  </section>
+
+  <section class="stop">
+    <p class="eyebrow">Curves</p>
+    <h2>The first half hour of extra layover does most of the work</h2>
+    <p>
+      The miss rate falls from {{all30}}% at 30 minutes to {{all60}}% at an
+      hour and {{all120}}% at two hours, then flattens toward the cancellation
+      floor. The worst hub at 45 minutes was {{worst45name}} at {{worst45}}%;
+      the best was {{best45name}} at {{best45}}%.
+    </p>
+    <figure class="calc">
+      <div class="calc-head"><span>Ten busiest hubs</span><span>5-minute layover bins</span></div>
+      <div class="calc-body">
+        <div class="lg"><span class="l1">this hub, with 95% interval</span><span class="l0">all 30 hubs</span></div>
+        <div class="panels">
+          {{FIG:curves_ATL.svg}}
+          {{FIG:curves_ORD.svg}}
+          {{FIG:curves_DEN.svg}}
+          {{FIG:curves_DFW.svg}}
+          {{FIG:curves_CLT.svg}}
+          {{FIG:curves_PHX.svg}}
+          {{FIG:curves_LAX.svg}}
+          {{FIG:curves_LAS.svg}}
+          {{FIG:curves_SEA.svg}}
+          {{FIG:curves_IAH.svg}}
+        </div>
+      </div>
+      <figcaption class="calc-foot">Share of constructed connections missed, by scheduled layover, September 2023 to August 2026, all airlines at each hub pooled. Wilson 95% intervals treat pairs as independent and are too narrow. Drawn by <code>scripts/make_figures.py</code> from <code>tables/curves_hub.csv</code>.</figcaption>
+    </figure>
+  </section>
+
+  <section class="stop">
+    <p class="eyebrow">The 95% layover</p>
+    <h2>Evening arrivals need longer layovers</h2>
+    <p>
+      Departures leaving 15 or more minutes late rise from {{hourFirstLate}}%
+      in the {{hourFirst}} am hour to {{hourWorstLate}}% at {{hourWorst}}:00.
+      Counting cancellations, only {{hubsReach95}} of the {{hubsTotal}} hubs
+      reach a 95% chance within 180 minutes at all, so the map below takes
+      cancellations out and asks a narrower question: if both flights
+      operate, how much layover does a 95% chance need? At the median hub it
+      is {{flownMedian8}} minutes for an 8 am arrival and {{flownMedian19}}
+      for a 7 pm one.
+    </p>
+    <figure class="calc">
+      <div class="calc-head"><span>Layover for 95%, if both flights operate</span><span>15-minute steps</span></div>
+      <div class="calc-body hscroll">
+        {{FIG:heatmap_l95_flown.svg}}
+      </div>
+      <figcaption class="calc-foot">Shortest scheduled layover (15-minute buckets) at which the miss rate among pairs where both flights operated stays at or below 5% for every longer bucket, by hub and arrival hour. Darker is longer. The version counting cancellations is mostly "+" and is in <code>tables/layover_needed_hub_hour.csv</code>.</figcaption>
+    </figure>
+  </section>
+
+  <section class="stop">
+    <p class="eyebrow">The shortcut</p>
+    <h2>The outbound flight is late on the same days</h2>
+    <p>
+      The obvious way to judge a connection is to ask how often the inbound
+      flight lands more than the spare time late. That ignores the outbound.
+      When the inbound was 30 or more minutes late, the outbound left 15 or
+      more minutes late {{depLateGiven}}% of the time, against
+      {{depLateBase}}% of all pairs: the same storm and the same congested
+      airport hold up both. The correlation between the two delays is
+      {{corrAll}} overall, from {{corrMin}} at {{corrMinHub}} to
+      {{corrMax}} at {{corrMaxHub}}.
+    </p>
+    <p>
+      At 45 minutes the shortcut gives {{sc45naive}}% against a paired
+      {{sc45paired}}%. The delay part alone overstates by {{sc45delayGap}}
+      points ({{sc45naiveDelay}}% against {{sc45pairedDelay}}%), offset a
+      little by the {{sc45depCancel}} points of outbound cancellations the
+      shortcut never sees. The gap closes at about {{scCross}} minutes and
+      reverses after it, when cancellations make up most of the remaining
+      risk. By hub it runs from {{scHubGapMin}} points at {{scHubGapMinHub}}
+      to {{scHubGapMax}} at {{scHubGapMaxHub}}.
+    </p>
+    <figure class="calc">
+      <div class="calc-head"><span>All 30 hubs</span><span>paired against inbound only</span></div>
+      <div class="calc-body">{{FIG:shortcut.svg}}</div>
+      <figcaption class="calc-foot">Miss rate by 5-minute layover bin computed two ways on the same pairs: from both flights' actual times and cancellations (green), and from the inbound flight alone (amber). From <code>tables/shortcut_all.csv</code>.</figcaption>
+    </figure>
+  </section>
+
+  <section class="stop">
+    <p class="eyebrow">Evaluation</p>
+    <h2>Three estimators, tested on six months they never saw</h2>
+    <p>
+      Each estimator was fitted on September 2023 to February 2026 and scored
+      on {{evalN}} pairs from March to August 2026, where {{evalObserved}}%
+      were missed. The inbound-only shortcut uses the same cells and
+      backoff as the cell average, so the two differ only in what they
+      average. The logistic model has terms for hub and airline, layover,
+      arrival hour, month and weekday, with layover, month and hour allowed to
+      vary by hub; it was fitted on {{evalTrainN}} training pairs.
+    </p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Estimator</th><th class="num">Mean prediction</th><th class="num">Calibration error (points)</th><th class="num">Brier score</th><th class="num">Brier skill</th><th class="num">Log loss</th></tr></thead>
+        <tbody>
+          <tr><td>Inbound delay only</td><td class="num">{{naivePred}}%</td><td class="num">{{naiveEce}}</td><td class="num">{{naiveBrier}}</td><td class="num">{{naiveSkill}}%</td><td class="num">{{naiveLogLoss}}</td></tr>
+          <tr><td>Cell average</td><td class="num">{{lookupPred}}%</td><td class="num">{{lookupEce}}</td><td class="num">{{lookupBrier}}</td><td class="num">{{lookupSkill}}%</td><td class="num">{{lookupLogLoss}}</td></tr>
+          <tr><td>Logistic model</td><td class="num">{{modelPred}}%</td><td class="num">{{modelEce}}</td><td class="num">{{modelBrier}}</td><td class="num">{{modelSkill}}%</td><td class="num">{{modelLogLoss}}</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:20px">
+      The model calibrated best by a small margin over the cell average, and
+      the tool ships it. Both predicted fewer misses than happened in the
+      test months ({{modelPred}}% and {{lookupPred}}% against
+      {{evalObserved}}%): March to August 2026 was worse than the same
+      months before it ({{marAug2026}}% missed, against {{marAug2024}}% in
+      2024 and {{marAug2025}}% in 2025), and pairs lost to a cancelled or
+      diverted flight rose to {{marAugCancel2026}}% from about {{marAugCancelPrior}}%. The
+      shortcut was the worst calibrated; in its top tenth it predicted
+      {{naiveTopPred}}% and saw {{naiveTopObs}}%. Brier skill against always predicting the test
+      average is small for all three, about {{modelSkill}}% at best: most of
+      what decides a single connection, such as a thunderstorm that afternoon,
+      is not in the inputs.
+    </p>
+    <figure class="calc">
+      <div class="calc-head"><span>Calibration, March to August 2026</span><span>deciles of prediction</span></div>
+      <div class="calc-body">{{FIG:calibration.svg}}</div>
+      <figcaption class="calc-foot">Mean predicted against observed miss rate in each tenth of the test pairs, sorted by prediction. The dotted diagonal is perfect calibration. From <code>tables/calibration.csv</code>.</figcaption>
+    </figure>
+    <p style="margin-top:20px">
+      To rank what drives risk, each factor was dropped from the model in turn
+      and the test log loss compared. {{Driver1}} mattered most, then
+      {{driver2}} and {{driver3}}. Dropping {{driverLast}} made the test
+      score slightly better: which months are bad changes from year to year.
+    </p>
+  </section>
+
+  <section class="stop">
+    <p class="eyebrow">Pre-pandemic</p>
+    <h2>2019 looked much the same</h2>
+    <p>
+      The same 30 hubs and airlines in calendar 2019 ({{y2019pairsM}} million
+      pairs) missed {{y2019_45}}% of 45-minute and {{y2019_60}}% of
+      60-minute connections, against {{all45}}% and {{all60}}% in the main
+      window. Cancellations and diversions were higher, {{y2019Floor}}%
+      against {{allFloor}}%, {{y2019L95Sentence}}; if both
+      flights flew, it took {{y2019L95flown}} minutes. Hub by hub at 45
+      minutes, {{y2019worseNowCount}} of 30 are worse now. {{y2019worseHub}}
+      rose most ({{y2019worseD}} points) and {{y2019betterHub}} fell most
+      ({{y2019betterD}} points).
+    </p>
+  </section>
+
+  <section class="stop">
+    <p class="eyebrow">Every hub</p>
+    <h2>The table behind the tool</h2>
+    <div class="tablewrap">
+      <table class="hubs">
+        <thead><tr><th>Hub</th><th></th><th class="num">Pairs (m)</th><th class="num">Missed at 45</th><th class="num">90% at</th><th class="num">95% at</th><th class="num">95% if both fly</th><th class="num">Cancel or divert</th><th class="num">Same tail</th><th class="num">Delay corr.</th><th class="num">Shortcut gap</th></tr></thead>
+        <tbody>
+{{TABLE_HUBS}}
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:14px; font-size:15px">Layovers in minutes from 5-minute bins with at least {{minCell}} pairs; "&gt;180" means not reached within 180 minutes. Cancel or divert is the share of pairs lost to a cancelled or diverted flight. Same tail is the share of candidate pairs dropped because one aircraft flew both legs. The shortcut gap is the inbound-only estimate minus the paired one at 45 minutes, in points.</p>
+  </section>
+
+  <section class="stop stop--warn">
+    <p class="eyebrow">Limits</p>
+    <h2>What this cannot tell you</h2>
+    <ul>
+      <li>Constructed pairs are not real bookings. Airlines do not sell every pair, and each sets a minimum connection time per airport. No public table of those minimums was found, so the tool greys layovers under 35 minutes rather than using each airline's figure.</li>
+      <li>One walking time per connection is a simplification. A gate change across a big airport can take much longer than 20 minutes, which is why W is a slider.</li>
+      <li>Only US domestic flights by the carriers that report to BTS. No international legs, no customs, no partner-airline connections.</li>
+      <li>Airlines sometimes hold a departure for connecting passengers. That appears here as outbound delay and cannot be told apart from ordinary delay.</li>
+      <li>A miss here means rebooking. How many hours it cost is not measured.</li>
+      <li>Pairs share arrivals and days, so the intervals shown are too narrow.</li>
+    </ul>
+  </section>
+
+  <section class="stop stop--end">
+    <p class="eyebrow">Sources</p>
+    <h2>Data and code</h2>
+    <dl class="specs">
+      <dt>Flights</dt>
+      <dd>US Bureau of Transportation Statistics, Marketing Carrier On-Time Performance (Beginning January 2018), monthly files September 2023 to August 2026 and January to December 2019: {{flights}} flights in the main window. Public domain.</dd>
+      <dt>Code</dt>
+      <dd><a href="https://github.com/lyhjeremy/connection-odds">github.com/lyhjeremy/connection-odds</a>: fetcher, pair builder with unit tests, analysis, the tool's data export and every table quoted here. Method decisions are in <a href="https://github.com/lyhjeremy/connection-odds/blob/main/docs/decisions.md">docs/decisions.md</a>.</dd>
+      <dt>Tool</dt>
+      <dd><a href="../">The lookup tool</a> runs in the browser from a {{toolKB}} KB data file; nothing you choose leaves the page.</dd>
+    </dl>
+  </section>
+
+</div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Connection Odds, 2026. Jeremy Lee. <a href="https://github.com/lyhjeremy/connection-odds">Source</a> · <a href="../privacy/">Privacy</a></p>
+  </div>
+</footer>
