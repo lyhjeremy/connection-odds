@@ -36,3 +36,7 @@ Judgment calls the spec (`docs/spec.md`) did not settle, in the order they come 
 21. **W slider** runs from 10 to 30 minutes in steps of 5, with one model per value; D stays at 10 minutes. The range stops at 30 to keep `tool.json` under its 2 MB budget: each extra W value adds a count to every observed cell.
 22. **Minimum connection times.** The spec asks for layovers below an airline's minimum to be greyed. No public table of airline minimum connection times was found; the figures that turn up online come from forums and travel blogs and disagree. The tool greys layovers under 35 minutes and says it lacks the airlines' own tables.
 23. **Cells in the tool** are (hub, airline, arrival hour, month, 15-minute bucket) with at least 200 pairs. Thinner cells show the model and say so.
+
+## Outputs
+
+24. **No `writeup.md`.** The spec lists one; the write-up lives only at `/overview/`, built from `site/overview.fragment.html`, so there is one source of prose rather than two that could drift. `numbers.json` sits in `site/` next to the templates it fills, not in `results/`.

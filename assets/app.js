@@ -202,6 +202,7 @@
     if (!r.ok) throw new Error(r.status);
     return r.json();
   }).then(init).catch(function (err) {
+    document.querySelectorAll(".skeleton").forEach(function (el) { el.classList.remove("skeleton"); });
     $("tool").removeAttribute("aria-busy");
     $("src").textContent = "The data file did not load (" + err.message + "). Reload the page to try again.";
   });

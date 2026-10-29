@@ -147,6 +147,8 @@ def build():
     n["sameTailMaxHub"], n["sameTailMax"] = e["same_tail_max_hub"], pct(e["same_tail_max"], 1)
     hr = e["delay_by_hour_max"]
     n["hourWorst"], n["hourWorstLate"] = hr["hour"], pct(hr["dep_late15"])
+    h = int(hr["hour"])
+    n["hourWorstLabel"] = f"{(h - 1) % 12 + 1} {'am' if h < 12 else 'pm'}"
     n["hourFirst"], n["hourFirstLate"] = e["delay_by_hour_first"]["hour"], pct(e["delay_by_hour_first"]["dep_late15"])
     wm = e["worst_month"]
     import datetime as dt

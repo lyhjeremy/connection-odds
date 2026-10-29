@@ -1,6 +1,6 @@
 # Connection Odds
 
-How often is a US domestic connection missed, and how long a layover does a 95% chance take? This project pairs every arrival and departure at the 30 busiest US airports from the BTS on-time data, September 2023 to August 2026, scores each pair against what actually happened, and puts the result in a lookup tool that runs in the browser.
+How often is a US domestic connection missed, and how long a layover does a 95% chance take? This project pairs arrivals with departures on the same airline at the 30 busiest US airports from the BTS on-time data, September 2023 to August 2026, scores each pair against what actually happened, and puts the result in a lookup tool that runs in the browser.
 
 [Lookup tool](https://lyhjeremy.github.io/connection-odds/) · [Write-up](https://lyhjeremy.github.io/connection-odds/overview/)
 

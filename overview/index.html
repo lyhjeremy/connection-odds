@@ -281,7 +281,7 @@
       At Atlanta it was 14%, and a 95% chance took
       130 minutes. Judging the risk from the inbound flight alone
       overstated it by 2.8 points at 45 minutes, because the outbound
-      flight tends to be late on the same days. The numbers come from
+      flight is often late too, and more often on the days the inbound is. The numbers come from
       23.0 million domestic flights recorded by the US Bureau of
       Transportation Statistics, paired into 90.0 million connections.
     </p>
@@ -315,7 +315,7 @@
 
   <section class="stop stop--key">
     <p class="eyebrow">Method</p>
-    <h2>Connections are built from flight pairs, not bookings</h2>
+    <h2>Every connection is built from two recorded flights</h2>
     <p>
       The BTS on-time table lists flights, not passengers. Every connection
       here is constructed. At each hub, an arriving flight is paired with
@@ -328,7 +328,9 @@
       8.6% at TPA. To keep every arrival equally
       represented, one departure is drawn at random for each arrival in each
       15-minute layover band, leaving 90.0 million pairs on
-      196 hub and airline combinations.
+      196 hub and airline combinations. Results by layover use
+      5-minute bins labeled by their lower edge, so "45 minutes" means a
+      scheduled layover of 45 to 49 minutes.
     </p>
     <p>
       A pair is missed if the inbound was cancelled or diverted, if the outbound
@@ -392,7 +394,7 @@
     <h2>Evening arrivals need longer layovers</h2>
     <p>
       Departures leaving 15 or more minutes late rise from 7%
-      in the 5 am hour to 32% at 19:00.
+      in the 5 am hour to 32% in the 7 pm hour.
       Counting cancellations, only 22 of the 30 hubs
       reach a 95% chance within 180 minutes at all, so the map below takes
       cancellations out and asks a narrower question: if both flights
@@ -411,14 +413,16 @@
 
   <section class="stop">
     <p class="eyebrow">The shortcut</p>
-    <h2>The outbound flight is late on the same days</h2>
+    <h2>The outbound flight is often late too</h2>
     <p>
       The obvious way to judge a connection is to ask how often the inbound
       flight lands more than the spare time late. That ignores the outbound.
       When the inbound was 30 or more minutes late, the outbound left 15 or
       more minutes late 40% of the time, against
       24% of all pairs: the same storm and the same congested
-      airport hold up both. The correlation between the two delays is
+      airport hold up both. Part of the gap does not depend on that link:
+      outbound flights leave late on average, so even unrelated delays would
+      shrink the shortcut's estimate. The correlation between the two delays is
       0.15 overall, from 0.05 at SLC to
       0.21 at EWR.
     </p>

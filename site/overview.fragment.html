@@ -45,7 +45,7 @@
       At {{topHubName}} it was {{topHub45}}%, and a 95% chance took
       {{topHub95}} minutes. Judging the risk from the inbound flight alone
       overstated it by {{sc45gap}} points at 45 minutes, because the outbound
-      flight tends to be late on the same days. The numbers come from
+      flight is often late too, and more often on the days the inbound is. The numbers come from
       {{flightsM}} million domestic flights recorded by the US Bureau of
       Transportation Statistics, paired into {{pairsM}} million connections.
     </p>
@@ -79,7 +79,7 @@
 
   <section class="stop stop--key">
     <p class="eyebrow">Method</p>
-    <h2>Connections are built from flight pairs, not bookings</h2>
+    <h2>Every connection is built from two recorded flights</h2>
     <p>
       The BTS on-time table lists flights, not passengers. Every connection
       here is constructed. At each hub, an arriving flight is paired with
@@ -92,7 +92,9 @@
       {{sameTailMax}}% at {{sameTailMaxHub}}. To keep every arrival equally
       represented, one departure is drawn at random for each arrival in each
       15-minute layover band, leaving {{pairsM}} million pairs on
-      {{hubAirlines}} hub and airline combinations.
+      {{hubAirlines}} hub and airline combinations. Results by layover use
+      5-minute bins labeled by their lower edge, so "45 minutes" means a
+      scheduled layover of 45 to 49 minutes.
     </p>
     <p>
       A pair is missed if the inbound was cancelled or diverted, if the outbound
@@ -139,7 +141,7 @@
     <h2>Evening arrivals need longer layovers</h2>
     <p>
       Departures leaving 15 or more minutes late rise from {{hourFirstLate}}%
-      in the {{hourFirst}} am hour to {{hourWorstLate}}% at {{hourWorst}}:00.
+      in the {{hourFirst}} am hour to {{hourWorstLate}}% in the {{hourWorstLabel}} hour.
       Counting cancellations, only {{hubsReach95}} of the {{hubsTotal}} hubs
       reach a 95% chance within 180 minutes at all, so the map below takes
       cancellations out and asks a narrower question: if both flights
@@ -158,14 +160,16 @@
 
   <section class="stop">
     <p class="eyebrow">The shortcut</p>
-    <h2>The outbound flight is late on the same days</h2>
+    <h2>The outbound flight is often late too</h2>
     <p>
       The obvious way to judge a connection is to ask how often the inbound
       flight lands more than the spare time late. That ignores the outbound.
       When the inbound was 30 or more minutes late, the outbound left 15 or
       more minutes late {{depLateGiven}}% of the time, against
       {{depLateBase}}% of all pairs: the same storm and the same congested
-      airport hold up both. The correlation between the two delays is
+      airport hold up both. Part of the gap does not depend on that link:
+      outbound flights leave late on average, so even unrelated delays would
+      shrink the shortcut's estimate. The correlation between the two delays is
       {{corrAll}} overall, from {{corrMin}} at {{corrMinHub}} to
       {{corrMax}} at {{corrMaxHub}}.
     </p>

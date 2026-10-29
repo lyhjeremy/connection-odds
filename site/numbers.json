@@ -110,6 +110,7 @@
  "sameTailMax": "8.6",
  "hourWorst": 19,
  "hourWorstLate": "32",
+ "hourWorstLabel": "7 pm",
  "hourFirst": 5,
  "hourFirstLate": "7",
  "worstMonth": "January 2026",
