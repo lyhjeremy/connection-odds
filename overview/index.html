@@ -268,6 +268,24 @@
   .lg .l2::before { border-top-color: var(--accent2); }
   .hubs { min-width: 860px; font-size: 14px; }
   .hubs td.num, .hubs th.num { text-align: right; font-family: var(--mono); }
+  /* At a glance, set as a boarding pass: the result on the stub, the method on the pass. */
+  .pass { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr); margin: 34px 0 0;
+          border: 1.5px solid var(--ink); background: var(--card); }
+  .pass-main { padding: 14px 18px 16px; }
+  .pass-stub { padding: 14px 18px 16px; border-left: 2px dashed var(--edge); }
+  .pass-h { margin: 0 0 10px; font: 600 11.5px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); max-width: none; }
+  .pass dl { margin: 0; display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 7px 14px; }
+  .pass dt { font: 600 11.5px/1.5 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+  .pass dd { margin: 0; font: 15px/1.45 var(--sans); color: var(--ink); }
+  .pass-stub .big { font: 600 clamp(34px, 5vw, 46px)/1 var(--display); color: var(--accent); margin: 2px 0 4px; }
+  .pass-stub p { margin: 0 0 12px; font: 14.5px/1.45 var(--sans); color: var(--ink2); max-width: none; }
+  .pass-stub p b { font-family: var(--mono); font-weight: 600; color: var(--ink); }
+  @media (max-width: 720px) {
+    .pass { grid-template-columns: 1fr; }
+    .pass-stub { border-left: 0; border-top: 2px dashed var(--edge); }
+    .pass dl { grid-template-columns: 1fr; gap: 2px 0; }
+    .pass dd { margin-bottom: 8px; }
+  }
 </style>
 
 <div class="wrap">
@@ -311,6 +329,24 @@
         <p>minutes needed for 95% (if both fly) at the median hub, arriving at 8 am against 7 pm. Delay builds through the day.</p>
       </div>
     </div>
+    <section class="pass" aria-labelledby="pass-h">
+      <div class="pass-main">
+        <h2 class="pass-h" id="pass-h">At a glance</h2>
+        <dl>
+          <dt>Question</dt><dd>How often is a US domestic connection missed, and how long a layover gives a 95% chance?</dd>
+          <dt>Data</dt><dd>22,957,747 BTS flights at the 30 busiest US airports, September 2023 to August 2026, paired into 89,980,442 same-airline connections on 196 hub and airline combinations.</dd>
+          <dt>Method</dt><dd>Each pair scored against what both flights actually did; a logistic model (hub and airline, layover, hour, month, weekday) for the lookup tool.</dd>
+          <dt>Holdout</dt><dd>Fitted on September 2023 to February 2026, tested on 2,000,000 pairs from March to August 2026, against a cell average and the inbound-delay-only shortcut.</dd>
+          <dt>Main limit</dt><dd>Pairs are constructed from schedules, not real bookings; airline minimum connection times and held departures are not modeled.</dd>
+        </dl>
+      </div>
+      <div class="pass-stub">
+        <h2 class="pass-h">Result</h2>
+        <div class="big">17.2%</div>
+        <p>of 45-minute connections missed, against <b>20.0%</b> from the inbound flight alone.</p>
+        <p>Calibration error on the holdout: model <b>0.86</b> points, cell average <b>0.93</b>, shortcut <b>2.05</b>.</p>
+      </div>
+    </section>
   </section>
 </div>
 
@@ -559,7 +595,7 @@
     <p class="eyebrow">Limits</p>
     <h2>What this cannot tell you</h2>
     <ul>
-      <li>Constructed pairs are not real bookings. Airlines do not sell every pair, and each sets a minimum connection time per airport. No public table of those minimums was found, so the tool greys layovers under 35 minutes rather than using each airline's figure.</li>
+      <li>Constructed pairs are not real bookings. Airlines do not sell every pair, and each sets a minimum connection time per airport. No public table of those minimums was found, so the tool grays out layovers under 35 minutes rather than using each airline's figure.</li>
       <li>One walking time per connection is a simplification. A gate change across a big airport can take much longer than 20 minutes, which is why W is a slider.</li>
       <li>Only US domestic flights by the carriers that report to BTS. No international legs, no customs, no partner-airline connections.</li>
       <li>Airlines sometimes hold a departure for connecting passengers. That appears here as outbound delay and cannot be told apart from ordinary delay.</li>

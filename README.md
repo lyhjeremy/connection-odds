@@ -2,6 +2,8 @@
 
 How often is a US domestic connection missed, and how long a layover does a 95% chance take? This project pairs arrivals with departures on the same airline at the 30 busiest US airports from the BTS on-time data, September 2023 to August 2026, scores each pair against what actually happened, and puts the result in a lookup tool that runs in the browser.
 
+Result: 17% of 45-minute connections were missed, against 20.0% estimated from the inbound delay alone; on a March to August 2026 holdout the logistic model's calibration error was 0.86 points, against 2.05 for that inbound-only shortcut.
+
 [Lookup tool](https://lyhjeremy.github.io/connection-odds/) · [Write-up](https://lyhjeremy.github.io/connection-odds/overview/)
 
 Design and copy follow [these standards](https://github.com/lyhjeremy/lyhjeremy/blob/main/DESIGN_STANDARDS.md).
