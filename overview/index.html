@@ -286,6 +286,43 @@
     .pass dl { grid-template-columns: 1fr; gap: 2px 0; }
     .pass dd { margin-bottom: 8px; }
   }
+  /* Itinerary checker: results, trace replay */
+  .agent-tbl td:first-child { font-family: var(--sans); color: var(--ink); }
+  .agent-tbl td.num, .agent-tbl th.num { text-align: right; white-space: nowrap; }
+  .tr-ctl { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: end; padding: 14px 16px 0; }
+  .tr-ctl label { display: block; font: 600 12px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .tr-ctl select { font: 15px/1.3 var(--sans); padding: 7px 8px; border: 1px solid var(--edge); background: var(--paper); color: var(--ink); border-radius: 0; max-width: 100%; }
+  .tr-ctl .pick { flex: 1 1 320px; min-width: 0; }
+  .tr-ctl .pick select { width: 100%; }
+  .tr-btn { font: 600 14px/1 var(--sans); padding: 9px 12px; border: 1px solid var(--edge); background: var(--paper); color: var(--ink); border-radius: 0; cursor: pointer; }
+  .tr-btn:hover { border-color: var(--ink); }
+  .tr-btn:disabled { color: var(--muted); cursor: default; border-color: var(--rule); }
+  .tr-btn:focus-visible, .tr-ctl select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .trace { list-style: none; margin: 0; padding: 14px 16px 6px; }
+  .trace li { border: 1px solid var(--rule); margin: 0 0 10px; background: var(--paper); }
+  .trace li.now { border: 2px solid var(--ink); }
+  .trace li[hidden] { display: none; }
+  .trace .th { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; padding: 7px 12px; border-bottom: 1px solid var(--rule); font: 600 12px/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .trace .th b { color: var(--ink); }
+  .trace .tb { padding: 9px 12px; font: 15px/1.55 var(--sans); color: var(--ink); overflow-wrap: anywhere; }
+  .trace .tb p { margin: 0 0 6px; max-width: none; }
+  .trace pre { margin: 0; padding: 8px 10px; background: var(--card); border: 1px solid var(--rule); font: 13px/1.5 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; max-height: 260px; overflow: auto; }
+  .trace .call { font-family: var(--mono); font-size: 13.5px; margin: 0 0 4px; }
+  .trace mark.u { background: color-mix(in srgb, var(--accent2) 22%, transparent); color: var(--ink); border-bottom: 2px solid var(--accent2); }
+  .trace mark.s { background: none; color: var(--ink); border-bottom: 2px solid var(--accent); }
+  .tr-out { margin: 0; max-width: none; padding: 10px 16px 12px; border-top: 1px solid var(--rule); font: 14px/1.5 var(--sans); color: var(--muted); }
+  .tr-out b.ok { color: var(--accent); } .tr-out b.bad { color: var(--accent2); }
+  .skel { height: 14px; margin: 8px 0; background: var(--rule); }
+  @media (prefers-reduced-motion: no-preference) { .skel { animation: pulse 1.6s ease-in-out infinite; } }
+  .err-list { margin: 0; padding-left: 1.2em; }
+  .err-list li { margin: 0 0 12px; }
+  .next-list { margin: 0; padding-left: 1.2em; }
+  .next-list li { margin: 0 0 8px; }
+  .runlog { margin-top: 26px; border: 1px solid var(--edge); background: var(--card); }
+  .runlog-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 9px 16px; border-bottom: 1px solid var(--edge); font: 600 11.5px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .runlog table { min-width: 560px; font-family: var(--mono); font-size: 14px; background: transparent; }
+  .runlog .runlog-foot { max-width: none; margin: 0; padding: 10px 16px; border-top: 1px solid var(--rule); font-family: var(--sans); font-size: 14px; color: var(--muted); }
+  .trace .itin { white-space: pre-wrap; font: 13px/1.5 var(--mono); margin: 0; }
 </style>
 
 <div class="wrap">
@@ -337,6 +374,7 @@
           <dt>Data</dt><dd>22,957,747 BTS flights at the 30 busiest US airports, September 2023 to August 2026, paired into 89,980,442 same-airline connections on 196 hub and airline combinations.</dd>
           <dt>Method</dt><dd>Each pair scored against what both flights actually did; a logistic model (hub and airline, layover, hour, month, weekday) for the lookup tool.</dd>
           <dt>Holdout</dt><dd>Fitted on September 2023 to February 2026, tested on 2,000,000 pairs from March to August 2026, against a cell average and the inbound-delay-only shortcut.</dd>
+          <dt>Agent</dt><dd>Pasted itineraries go through <code>claude -p</code> into checked legs; code computes each layover and the model scores it. 30 of 30 synthetic itineraries right end to end; a bare model's miss chances were a median 9.4 points off the model's.</dd>
           <dt>Main limit</dt><dd>Pairs are constructed from schedules, not real bookings; airline minimum connection times and held departures are not modeled.</dd>
         </dl>
       </div>
@@ -352,6 +390,110 @@
 
 <div class="wrap">
 <div class="route">
+
+  <section class="stop stop--key" id="checker">
+    <p class="eyebrow">November 2026 upgrade: paste your itinerary</p>
+    <h2>A language model copies the flights; code does the clock arithmetic; the model gives the odds</h2>
+    <p>
+      Paste a confirmation email and a <code>claude -p</code> call (Sonnet) copies each flight into a JSON
+      schema: airline and flight number, airport codes, and every date and time string exactly as printed.
+      It does no arithmetic. Code then parses "7:05p", "0715" or "8:21 AM (+1)", checks every airport code
+      against the 372 airports in the BTS data, pairs consecutive flights at the same airport into
+      connections, and computes each layover in minutes from the two local times. Each same-airline
+      connection at one of the 30 hubs goes to <code>connection_risk</code>, a Python port of the lookup
+      tool's model that agrees with the browser on 2,000 of 2,000 random inputs (largest difference
+      1e-16). A second call (Haiku) writes the reply, and code checks that every number and clock time in
+      it came from the tool output or the parsed legs.
+    </p>
+    <p>
+      On 30 itineraries frozen in commit <code>e59bbff</code>, written for this test in mixed formats
+      (airline emails, airline reservation-system lines, prose, tab-separated paste, all-lowercase, city names
+      without codes), the checker parsed all 61 legs and 31 connections correctly and gave the same miss
+      probability as a direct model call for all 24 covered connections. A bare Sonnet call with no tools,
+      given 20 of the same itineraries, also got every layover right (23 of 23), so parsing was not where it
+      failed. Its miss probabilities were: a median of <b>9.4 points</b> from the model's, within 2 points
+      on 3 of 17, and too high on 14 of 17 (30% for a Detroit connection the model puts at 6.3%).
+    </p>
+    <p>
+      The itineraries are synthetic. They and their expected parses were written by the coding agent
+      (Claude) that also wrote the extraction prompt, so a perfect score here says the pipeline works on
+      the formats it was built for, not that it handles real email. No person has checked the expected parses.
+    </p>
+    <div class="runlog">
+      <div class="runlog-head"><span>Frozen set, run 2026-11-13</span><span>eval/results.json</span></div>
+      <div class="tablewrap" style="margin:0;border:0" role="region" aria-label="Checker and bare-model results" tabindex="0">
+        <table class="agent-tbl">
+          <thead><tr><th>Measure</th><th class="num">Checker</th><th class="num">Bare Sonnet</th></tr></thead>
+          <tbody>
+            <tr><td>Leg fields right (61 legs, 6 fields each)</td><td class="num">366 of 366</td><td class="num">not asked</td></tr>
+            <tr><td>Connection fields right (hub, layover, hour, month, covered)</td><td class="num">155 of 155</td><td class="num">not asked</td></tr>
+            <tr><td>Layover in minutes right (20-itinerary subset)</td><td class="num">23 of 23</td><td class="num">23 of 23</td></tr>
+            <tr><td>Miss probability equal to a direct model call</td><td class="num">24 of 24</td><td class="num">3 of 17 within 2 points</td></tr>
+            <tr><td>Numbers in the drafted reply not found in tool output or the itinerary</td><td class="num">0 of 205</td><td class="num">34 of 137</td></tr>
+            <tr><td>Extractions that failed validation, then fixed by one repair call</td><td class="num">1 of 30</td><td class="num">no validation</td></tr>
+            <tr><td>API-equivalent cost per itinerary</td><td class="num">$0.0068</td><td class="num">$0.0070</td></tr>
+            <tr><td>Latency per itinerary, median (p95)</td><td class="num">6.3 s (9.6 s)</td><td class="num">2.8 s (6.3 s)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="runlog-foot">From <code>python eval/score.py</code> on <code>eval/runs/agent.jsonl</code> and <code>eval/runs/baseline.jsonl</code>. "Not found" does not mean wrong. Costs are the API-equivalent figures the Claude CLI reports; the runs used a subscription. 79 model calls in all (59 checker, 20 baseline). The model call itself takes a median 0.04 ms on an Apple M4; the time is in the two language-model calls.</p>
+    </div>
+
+    <figure class="calc" id="trace-fig">
+      <div class="calc-head"><span>Recorded runs, step by step</span><span>eval/traces.json</span></div>
+      <div class="tr-ctl">
+        <div class="pick">
+          <label for="tr-q">Recorded itinerary</label>
+          <select id="tr-q" disabled><option>Loading 30 recorded runs</option></select>
+        </div>
+        <button type="button" class="tr-btn" id="tr-prev" disabled>Previous step</button>
+        <button type="button" class="tr-btn" id="tr-next" disabled>Next step</button>
+        <button type="button" class="tr-btn" id="tr-all" disabled>Show all steps</button>
+      </div>
+      <ol class="trace" id="tr-list" aria-live="polite"><li><div class="tb"><div class="skel"></div><div class="skel" style="width:70%"></div><div class="skel" style="width:85%"></div></div></li></ol>
+      <p class="tr-out" id="tr-out">Each run is replayed from the saved record: nothing on this page calls a model.</p>
+    </figure>
+
+    <h3>Where it went wrong, or nearly did</h3>
+    <ul class="err-list">
+      <li><b>A date that is only a weekday (i17).</b> The second flight's arrival reads "Arrives Sat 1:58 AM". The first
+        extraction copied "Sat" as the arrival date, which the date parser rejects. The repair call got the error message,
+        set the date to null, and the code then placed the 1:58 AM arrival on the next day. This was the only repair in 30.</li>
+      <li><b>"No chance" that means "no figure" (i08, i10).</b> For a 25-minute Dulles connection outside the model's 30 to
+        180 minute range, the reply said "the model gives no chance of missing it" before explaining the range. A reader
+        could take that as 0%. It has no number in it, so the number check passed it; a wording check would not have.</li>
+      <li><b>The bare model's odds.</b> It gave 25% for a 53-minute O'Hare connection the model puts at 15.0%, 30% for Detroit
+        at 6.3%, and 60% for the 25-minute Dulles connection the model does not cover at all. Where the model says the data
+        does not reach, the bare model still gave a number every time (6 of 6 uncovered connections).</li>
+    </ul>
+
+    <h3>Paste straight into the lookup tool</h3>
+    <p>
+      The <a href="../">lookup tool</a> now has an "Or paste an itinerary" box, read by fixed rules in
+      <code>assets/paste.js</code> with no model and no network request. It only handles one flight per line with a
+      flight number, both airport codes and both times. On the 28 frozen itineraries with a connection it filled the
+      fields exactly for 17, declined 11 (prose, city names, multi-line email layouts) and got none wrong
+      (<code>scripts/check_paste_parser.py</code>, <code>results/paste_parser_check.json</code>). For the declined formats
+      the language-model checker is the route.
+    </p>
+
+    <h3>The model as an MCP server</h3>
+    <p>
+      <code>agent/mcp_server.py</code> exposes <code>connection_risk</code> and <code>parse_legs</code> over stdio
+      (<code>claude mcp add connection-odds -- python agent/mcp_server.py</code>), so Claude Desktop or Claude Code gets
+      the number the browser shows instead of estimating one. The smoke test (<code>python -m agent.mcp_smoke</code>,
+      <code>eval/mcp_smoke.json</code>) calls both, including a connection at a non-hub airport, which comes back as not
+      covered with the reason.
+    </p>
+
+    <h3>What I would do next</h3>
+    <ul class="next-list">
+      <li>Test on real confirmation emails from several airlines, with personal details removed; this set is synthetic and was too easy for the checker.</li>
+      <li>Have a person check <code>eval/labeling_sheet.csv</code>: the expected parses are model-written.</li>
+      <li>Add a wording check for replies about uncovered connections, so "no chance" cannot stand in for "no figure".</li>
+      <li>Use the weekday: the model has weekday terms, but the tool and the checker average over them to match the browser.</li>
+    </ul>
+  </section>
 
   <section class="stop stop--key">
     <p class="eyebrow">Method</p>
@@ -625,5 +767,80 @@
     <p>Connection Odds, 2026. Jeremy Lee. <a href="https://github.com/lyhjeremy/connection-odds">Source</a> · <a href="../privacy/">Privacy</a></p>
   </div>
 </footer>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var T = [], cur = 0, shown = 1;
+  var esc = function (x) { return String(x).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+  var ms = function (v) { return v == null ? "" : (v >= 1000 ? (v / 1000).toFixed(1) + " s" : (v < 1 ? v.toFixed(2) : Math.round(v)) + " ms"); };
+  var cost = function (v) { return v == null ? "" : "$" + v.toFixed(4); };
+  function marks(text, unsourced) {
+    var bad = (unsourced || []).slice();
+    return esc(text).replace(/\d{1,2}:\d{2}(?:\s?[ap]\.?m\.?)?|\d[\d,]*(?:\.\d+)?%?/gi, function (m) {
+      var i = bad.indexOf(m.trim());
+      if (i >= 0) { bad.splice(i, 1); return '<mark class="u" title="not found in tool output">' + m + "</mark>"; }
+      return '<mark class="s">' + m + "</mark>";
+    });
+  }
+  function step(name, meta, body) {
+    return '<li><div class="th"><b>' + name + "</b><span>" + meta + '</span></div><div class="tb">' + body + "</div></li>";
+  }
+  function render() {
+    var t = T[cur], h = [], st = {};
+    t.steps.forEach(function (s) { if (!st[s.step]) st[s.step] = s; });
+    h.push(step("1 Pasted text", t.id + ", synthetic", '<pre class="itin">' + esc(t.text) + "</pre>"));
+    var e = st.extract || {};
+    h.push(step("2 Extract", (e.model || "") + " " + ms(e.ms) + " " + cost(e.cost_usd), "<pre>" + esc(JSON.stringify(t.extraction.legs.map(function (l) {
+      var o = {}; for (var k in l) if (l[k] !== null) o[k] = l[k]; return o; }), null, 1)) + "</pre>"));
+    var rp = t.steps.filter(function (s) { return s.step === "repair"; })[0];
+    if (rp) {
+      var first = t.steps.filter(function (s) { return s.step === "resolve"; })[0];
+      h.push(step("2b Repair", (rp.model || "") + " " + ms(rp.ms) + " " + cost(rp.cost_usd), "<p>Validation failed: " + esc((first.errors || []).join("; ")) + ". One repair call with that message.</p>"));
+    }
+    var r = "<p>Status: <b>" + esc(t.status) + "</b></p>";
+    if (t.legs.length) r += "<pre>" + esc(t.legs.map(function (l) { return l.airline + " " + l.flight + "  " + l.origin + " " + l.depart + "  " + l.destination + " " + l.arrive; }).join("\n")) + "</pre>";
+    r += t.connections.length ? "<p>" + t.connections.map(function (c) { return esc("Connection at " + c.hub + ": " + c.layover_min + " min (" + c.arrive.slice(11) + " to " + c.depart.slice(11) + ")" + (c.not_covered ? ", " + c.not_covered : "")); }).join("<br>") + "</p>" : "<p>No connections.</p>";
+    if (t.assumptions.length) r += "<p>" + esc(t.assumptions.join(" ")) + "</p>";
+    h.push(step("3 Parse, validate, time", "code", r));
+    var md = st.model || {};
+    h.push(step("4 Model", "agent/model.py " + ms(md.ms), t.calls.length ? t.calls.map(function (c) {
+      return '<p class="call">' + esc(c.covered ? "connection_risk(" + c.hub + ", " + c.airline + ", hour " + c.arrival_hour + ", month " + c.month + ", " + c.layover_min + " min) = " + c.miss_probability_pct + "% miss"
+        : "connection " + c.connection + " at " + c.hub + ": not scored, " + c.reason) + "</p>"; }).join("") : "<p>No model call.</p>"));
+    var a = st.answer;
+    if (a) {
+      h.push(step("5 Draft reply", (a.model || "") + " " + ms(a.ms) + " " + cost(a.cost_usd), "<p>" + marks(t.draft, t.unsourced) + "</p>"));
+      var ok = !t.unsourced || !t.unsourced.length;
+      h.push(step("6 Number check", ok ? "passed" : "failed", ok ? "<p>Every number and clock time in the draft matches the tool output or the parsed legs. The draft is shown.</p>"
+        : "<p>Not found: <b>" + esc(t.unsourced.join(", ")) + "</b>. Replaced by the template reply:</p><p>" + esc(t.answer) + "</p>"));
+    } else {
+      h.push(step("5 Reply", "template, no model call", "<p>" + esc(t.answer) + "</p>"));
+    }
+    $("tr-list").innerHTML = h.join("");
+    var lis = $("tr-list").children;
+    shown = Math.min(shown, lis.length);
+    for (var i = 0; i < lis.length; i++) { lis[i].hidden = i >= shown; lis[i].classList.toggle("now", i === shown - 1); }
+    $("tr-prev").disabled = shown <= 1;
+    $("tr-next").disabled = shown >= lis.length;
+    $("tr-all").disabled = shown >= lis.length;
+    var rk = t.risk.map(function (x) { return x.hub + " " + x.direct + "%"; }).join(", ");
+    $("tr-out").innerHTML = "Scored: " + (t.e2e_ok ? '<b class="ok">right</b>' : '<b class="bad">wrong</b>') + (rk ? ", direct model call gives " + esc(rk) : "") +
+      ". Total " + t.wall_s + " s, " + cost(t.cost_usd) + ".";
+  }
+  fetch("../eval/traces.json").then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
+    T = d.traces;
+    var sel = $("tr-q");
+    sel.innerHTML = T.map(function (t, i) { var first = t.text.split("\n")[0]; return '<option value="' + i + '">' + t.id + ": " + esc(first.length > 64 ? first.slice(0, 62) + "..." : first) + "</option>"; }).join("");
+    sel.disabled = false;
+    sel.addEventListener("change", function () { cur = +sel.value; shown = 1; render(); });
+    $("tr-next").addEventListener("click", function () { shown++; render(); });
+    $("tr-prev").addEventListener("click", function () { shown = Math.max(1, shown - 1); render(); });
+    $("tr-all").addEventListener("click", function () { shown = 99; render(); });
+    render();
+  }).catch(function (err) {
+    $("tr-list").innerHTML = '<li><div class="tb">The recorded runs did not load (' + esc(err.message) + "). They are in eval/traces.json in the repository.</div></li>";
+  });
+})();
+</script>
 </body>
 </html>

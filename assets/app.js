@@ -196,6 +196,35 @@
     document.querySelectorAll(".skeleton").forEach(function (el) { el.classList.remove("skeleton"); });
     $("tool").removeAttribute("aria-busy");
     render();
+    if ($("paste-go")) $("paste-go").addEventListener("click", readPaste);
+  }
+
+  /* Pasted itinerary (assets/paste.js): fill the fields from the first connection it finds. */
+  var airportCodes = null;
+  function readPaste() {
+    var msg = $("paste-msg");
+    if (!airportCodes) {
+      msg.textContent = "Loading the airport list.";
+      fetch("assets/airports.json").then(function (r) { return r.json(); }).then(function (d) { airportCodes = d.airports; readPaste(); })
+        .catch(function () { msg.textContent = "The airport list did not load. Reload the page to try again."; });
+      return;
+    }
+    var r = self.parseItinerary($("paste-text").value, airportCodes);
+    if (r.error) { msg.textContent = r.error + " This reader only handles one flight per line; set the fields by hand for other formats."; return; }
+    if (!r.connections.length) { msg.textContent = "Read " + r.legs.length + " flights but found no connection between them at one airport within a day."; return; }
+    var c = r.connections[0], notes = [];
+    if (hubIdx[c.hub] === undefined) { msg.textContent = "The connection is at " + c.hub + ", which is not one of the 30 hubs in this tool."; return; }
+    if (c.airline_in !== c.airline_out) { msg.textContent = "The connection at " + c.hub + " changes airlines (" + c.airline_in + " to " + c.airline_out + "); this tool covers same-airline connections only."; return; }
+    if (D.hubs[hubIdx[c.hub]].airlines.indexOf(c.airline_in) < 0) { msg.textContent = c.airline_in + " has too few connections at " + c.hub + " in the data for this tool."; return; }
+    if (c.layover_min < 30 || c.layover_min > 180) { msg.textContent = "The layover at " + c.hub + " is " + c.layover_min + " minutes, outside the 30 to 180 minutes this tool covers."; return; }
+    $("hub").value = c.hub; fillAirlines(); $("air").value = c.airline_in;
+    $("hour").value = c.arrival_hour;
+    if (c.month) $("month").value = c.month; else notes.push("no date found, so the month was left as it was");
+    $("lay").step = 1; $("lay").value = c.layover_min;
+    if (r.connections.length > 1) notes.push((r.connections.length - 1) + " more connection" + (r.connections.length > 2 ? "s" : "") + " not shown");
+    msg.textContent = "Read " + r.legs.length + " flights. Showing the connection at " + c.hub + ": " + c.airline_in + ", " + c.layover_min +
+      " minutes, arriving in the " + c.arrival_hour + ":00 hour" + (notes.length ? "; " + notes.join("; ") : "") + ".";
+    render();
   }
 
   fetch("assets/tool.json").then(function (r) {

@@ -1,0 +1,144 @@
+{
+ "n_itineraries": 30,
+ "n_legs": 61,
+ "n_connections": 31,
+ "n_covered": 24,
+ "synthetic": "All 30 itineraries were written by the coding agent; none is a real booking.",
+ "models": {
+  "extract": "sonnet",
+  "answer": "haiku",
+  "baseline": "sonnet"
+ },
+ "model_ids": [
+  "claude-haiku-5-5",
+  "claude-sonnet-5-5"
+ ],
+ "run_dates": [
+  "2026-11-13"
+ ],
+ "claude_calls": {
+  "agent": 59,
+  "baseline": 20
+ },
+ "is_itinerary_accuracy": 1.0,
+ "leg_fields": {
+  "n": 366,
+  "correct": 366
+ },
+ "connection_fields": {
+  "n": 155,
+  "correct": 155
+ },
+ "per_field": {
+  "airline": {
+   "n": 61,
+   "correct": 61
+  },
+  "flight": {
+   "n": 61,
+   "correct": 61
+  },
+  "origin": {
+   "n": 61,
+   "correct": 61
+  },
+  "destination": {
+   "n": 61,
+   "correct": 61
+  },
+  "depart": {
+   "n": 61,
+   "correct": 61
+  },
+  "arrive": {
+   "n": 61,
+   "correct": 61
+  },
+  "hub": {
+   "n": 31,
+   "correct": 31
+  },
+  "layover_min": {
+   "n": 31,
+   "correct": 31
+  },
+  "arrival_hour": {
+   "n": 31,
+   "correct": 31
+  },
+  "month": {
+   "n": 31,
+   "correct": 31
+  },
+  "covered": {
+   "n": 31,
+   "correct": 31
+  }
+ },
+ "itineraries_parsed_exactly": 30,
+ "validation": {
+  "first_pass_invalid": 1,
+  "repaired": 1,
+  "still_invalid": 0
+ },
+ "risk_agreement": {
+  "n": 24,
+  "identical": 24,
+  "max_abs_diff_when_scored": 0.0,
+  "note": "agent's miss probability vs a direct connection_risk call on the expected connection"
+ },
+ "end_to_end": {
+  "n": 30,
+  "correct": 30
+ },
+ "unsourced": {
+  "agent_draft": {
+   "numbers": 205,
+   "unsourced": 0,
+   "answers_with_any": 0,
+   "answers": 28
+  },
+  "fallback_to_template": 0,
+  "baseline": {
+   "numbers": 137,
+   "unsourced": 34,
+   "answers_with_any": 15,
+   "answers": 20
+  },
+  "agent_draft_same_subset": {
+   "numbers": 145,
+   "unsourced": 0
+  }
+ },
+ "baseline_vs_model": {
+  "connections": 23,
+  "layover_right": 23,
+  "covered": 17,
+  "risk_given": 17,
+  "risk_abs_err_median": 9.399999999999999,
+  "risk_abs_err_max": 24.9,
+  "risk_within_2pts": 3,
+  "agent_subset_layover_right": 23,
+  "agent_subset_risk_identical": 17,
+  "agent_subset_e2e": 20
+ },
+ "cost": {
+  "agent_per_itinerary_usd_mean": 0.0068385,
+  "agent_total_usd": 0.205155,
+  "extract_usd_median": 0.0053974999999999995,
+  "answer_usd_median": 0.00055785,
+  "baseline_per_itinerary_usd_mean": 0.00695042,
+  "baseline_total_usd": 0.1390084
+ },
+ "latency": {
+  "agent_wall_s_median": 6.29,
+  "agent_wall_s_p95": 9.6405,
+  "extract_ms_median": 1848.5,
+  "answer_ms_median": 3214.0,
+  "model_ms_median": 0.035,
+  "baseline_ms_median": 2816.0,
+  "baseline_ms_p95": 6322.95,
+  "machine": "Apple M4 for the model and parser; LLM latencies as reported by the Claude CLI"
+ },
+ "cost_note": "API-equivalent cost reported by the Claude CLI (total_cost_usd); the runs used a subscription"
+}

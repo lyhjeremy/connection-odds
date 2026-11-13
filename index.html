@@ -60,6 +60,13 @@
           <input type="range" id="w" min="10" max="30" step="5" value="20">
           <span class="hint">Boarding closes 10 minutes before pushback, so you need this walk plus 10 minutes between arrival and departure.</span>
         </div>
+        <details class="paste">
+          <summary>Or paste an itinerary</summary>
+          <label for="paste-text">One flight per line, with flight number, both airport codes and both times</label>
+          <textarea id="paste-text" rows="4" spellcheck="false" placeholder="DL 2318 14APR BOS ATL 0715 1012&#10;DL 1544 14APR ATL MSY 1105 1158"></textarea>
+          <button type="button" id="paste-go">Read it</button>
+          <p class="hint" id="paste-msg" aria-live="polite">Read in your browser by a fixed set of rules; nothing is sent anywhere. It fills the fields above from the first connection it finds.</p>
+        </details>
       </div>
       <div class="out">
         <div class="verdict">
@@ -96,6 +103,7 @@
     <p>The tool runs entirely in your browser. It downloads one data file from this site and sends nothing you choose anywhere. <a href="privacy/">Privacy</a> · <a href="overview/">Write-up</a> · <a href="https://github.com/lyhjeremy/connection-odds">Source on GitHub</a> (MIT)</p>
   </footer>
 </div>
+<script src="assets/paste.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>

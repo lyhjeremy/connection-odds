@@ -1,0 +1,664 @@
+{
+ "itineraries": 30,
+ "with_connections": 28,
+ "read": 17,
+ "read_and_exact": 17,
+ "read_but_wrong": 0,
+ "declined": 11,
+ "rows": [
+  {
+   "id": "i01",
+   "expected": [
+    {
+     "hub": "ORD",
+     "airline_in": "UA",
+     "airline_out": "UA",
+     "arrival_hour": 7,
+     "month": 3,
+     "layover_min": 53
+    }
+   ],
+   "parsed": null,
+   "error": "Found 0 flights in this text; a connection needs two.",
+   "exact": false
+  },
+  {
+   "id": "i02",
+   "expected": [
+    {
+     "hub": "ATL",
+     "airline_in": "DL",
+     "airline_out": "DL",
+     "arrival_hour": 10,
+     "month": 4,
+     "layover_min": 53
+    }
+   ],
+   "parsed": [
+    {
+     "hub": "ATL",
+     "airline_in": "DL",
+     "airline_out": "DL",
+     "arrival_hour": 10,
+     "month": 4,
+     "layover_min": 53
+    }
+   ],
+   "error": null,
+   "exact": true
+  },
+  {
+   "id": "i03",
+   "expected": [
+    {
+     "hub": "CLT",
+     "airline_in": "AA",
+     "airline_out": "AA",
+     "arrival_hour": 14,
+     "month": 6,
+     "layover_min": 45
+    }
+   ],
+   "parsed": null,
+   "error": "Found 0 flights in this text; a connection needs two.",
+   "exact": false
+  },
+  {
+   "id": "i04",
+   "expected": [
+    {
+     "hub": "DEN",
+     "airline_in": "WN",
+     "airline_out": "WN",
+     "arrival_hour": 8,
+     "month": 7,
+     "layover_min": 45
+    }
+   ],
+   "parsed": [
+    {
+     "hub": "DEN",
+     "airline_in": "WN",
+     "airline_out": "WN",
+     "arrival_hour": 8,
+     "month": 7,
+     "layover_min": 45
+    }
+   ],
+   "error": null,
+   "exact": true
+  },
+  {
+   "id": "i05",
+   "expected": [],
+   "parsed": null,
+   "error": "Found 1 flight in this text; a connection needs two.",
+   "exact": false
+  },
+  {
+   "id": "i06",
+   "expected": [
+    {
+     "hub": "DTW",
+     "airline_in": "DL",
+     "airline_out": "DL",
+     "arrival_hour": 9,
+     "month": 9,
+     "layover_min": 50
+    },
+    {
+     "hub": "ATL",
+     "airline_in": "DL",
+     "airline_out": "DL",
+     "arrival_hour": 12,
+     "month": 9,
+     "layover_min": 55
+    }
+   ],
+   "parsed": [
+    {
+     "hub": "DTW",
+     "airline_in": "DL",
+     "airline_out": "DL",
+     "arrival_hour": 9,
+     "month": 9,
+     "layover_min": 50
+    },
+    {
+     "hub": "ATL",
+     "airline_in": "DL",
+     "airline_out": "DL",
+     "arrival_hour": 12,
+     "month": 9,
+     "layover_min": 55
+    }
+   ],
+   "error": null,
+   "exact": true
+  },
+  {
+   "id": "i07",
+   "expected": [
+    {
+     "hub": "DFW",
+     "airline_in": "AA",
+     "airline_out": "AS",
+     "arrival_hour": 10,
+     "month": 10,
+     "layover_min": 65
+    }
+   ],
+   "parsed": [
+    {
+     "hub": "DFW",
+     "airline_in": "AA",
+     "airline_out": "AS",
+     "arrival_hour": 10,
+     "month": 10,
+     "layover_min": 65
+    }
+   ],
+   "error": null,
+   "exact": true
+  },
+  {
+   "id": "i08",
+   "expected": [
+    {
+     "hub": "IAD",
+     "airline_in": "UA",
+     "airline_out": "UA",
+     "arrival_hour": 8,
+     "month": 6,
+     "layover_min": 25
+    }
+   ],
+   "parsed": [
+    {
+     "hub": "IAD",
+     "airline_in": "UA",
+     "airline_out": "UA",
+     "arrival_hour": 8,
+     "month": 6,
+     "layover_min": 25
+    }
+   ],
+   "error": null,
+   "exact": true
+  },
+  {
+   "id": "i09",
+   "expected": [
+    {
+     "hub": "ABQ",
+     "airline_in": "WN",
+     "airline_out": "WN",
+     "arrival_hour": 10,
+     "month": 11,
+     "layover_min": 45
+    }
+   ],
+   "parsed": null,
+   "error": "Found 0 flights in this text; a connection needs two.",
+   "exact": false
+  },
+  {
+   "id": "i10",
+   "expected": [
+    {
+     "hub": "MCO",
+     "airline_in": "B6",
+     "airline_out": "B6",
+     "arrival_hour": 9,
+     "month": 1,
+     "layover_min": 265
+    }
+   ],
+   "parsed": [
+    {
+     "hub": "MCO",
+     "airline_in": "B6",
+     "airline_out": "B6",
+     "arrival_hour": 9,
+     "month": 1,
+     "layover_min": 265
+    }
+   ],
+   "error": null,
+   "exact": true
+  },
+  {
+   "id": "i11",
+   "expected": [
+    {
+     "hub": "DEN",
+     "airline_in": "F9",
+     "airline_out": "F9",
+     "arrival_hour": 2,
+     "month": 2,
+     "layover_min": 265
+    }
+   ],
+   "parsed": [
+    {
+     "hub": "DEN",
+     "airline_in": "F9",
+     "airline_out": "F9",
+     "arrival_hour": 2,
+     "month": 2,
+     "layover_min": 265
+    }
+   ],
+   "error": null,
+   "exact": true
+  },
+  {
+   "id": "i12",
+   "expected": [
+    {
+     "hub": "ORD",
+     "airline_in": "UA",
+     "airline_out": "UA",
+     "arrival_hour": 13,
+     "month": 5,
+     "layover_min": 53
+    },
+    {
+     "hub": "ORD",
+     "airline_in": "UA",
+     "airline_out": "UA",
+     "arrival_hour": 16,
+     "month": 5,
+     "layover_min": 52
+    }
+   ],
+   "parsed": [
+    {
+     "hub": "ORD",
+     "airline_in": "UA",
+     "airline_out": "UA",
+     "arrival_hour": 13,
+     "month": 5,
+     "layover_min": 53
+    },
+    {
+     "hub": "ORD",
+     "airline_in": "UA",
+     "airline_out": "UA",
+     "arrival_hour": 16,
+     "month": 5,
+     "layover_min": 52
+    }
+   ],
+   "error": null,
+   "exact": true
+  },
+  {
+   "id": "i13",
+   "expected": [
+    {
+     "hub": "ATL",
+     "airline_in": "NK",
+     "airline_out": "NK",
+     "arrival_hour": 8,
+     "month": 3,
+     "layover_min": 60
+    }
+   ],
+   "parsed": [
+    {
+     "hub": "ATL",
+     "airline_in": "NK",
+     "airline_out": "NK",
+     "arrival_hour": 8,
+     "month": 3,
+     "layover_min": 60
+    }
+   ],
+   "error": null,
+   "exact": true
+  },
+  {
+   "id": "i14",
+   "expected": [
+    {
+     "hub": "LAX",
+     "airline_in": "DL",
+     "airline_out": "DL",
+     "arrival_hour": 8,
+     "month": 12,
+     "layover_min": 83
+    }
+   ],
+   "parsed": null,
+   "error": "Found 0 flights in this text; a connection needs two.",
+   "exact": false
+  },
+  {
+   "id": "i15",
+   "expected": [
+    {
+     "hub": "CLT",
+     "airline_in": "AA",
+     "airline_out": "AA",
+     "arrival_hour": 19,
+     "month": 4,
+     "layover_min": 45
+    }
+   ],
+   "parsed": null,
+   "error": "Found 0 flights in this text; a connection needs two.",
+   "exact": false
+  },
+  {
+   "id": "i16",
+   "expected": [
+    {
+     "hub": "DEN",
+     "airline_in": "UA",
+     "airline_out": "UA",
+     "arrival_hour": 13,
+     "month": 8,
+     "layover_min": 56
+    }
+   ],
+   "parsed": null,
+   "error": "Found 1 flight in this text; a connection needs two.",
+   "exact": false
+  },
+  {
+   "id": "i17",
+   "expected": [
+    {
+     "hub": "FLL",
+     "airline_in": "B6",
+     "airline_out": "B6",
+     "arrival_hour": 21,
+     "month": 1,
+     "layover_min": 58
+    }
+   ],
+   "parsed": null,
+   "error": "Found 0 flights in this text; a connection needs two.",
+   "exact": false
+  },
+  {
+   "id": "i18",
+   "expected": [],
+   "parsed": [],
+   "error": null,
+   "exact": true
+  },
+  {
+   "id": "i19",
+   "expected": [],
+   "parsed": null,
+   "error": "Found 0 flights in this text; a connection needs two.",
+   "exact": false
+  },
+  {
+   "id": "i20",
+   "expected": [
+    {
+     "hub": "PHX",
+     "airline_in": "WN",
+     "airline_out": "WN",
+     "arrival_hour": 19,
+     "month": 11,
+     "layover_min": 45
+    }
+   ],
+   "parsed": null,
+   "error": "Found 0 flights in this text; a connection needs two.",
+   "exact": false
+  },
+  {
+   "id": "i21",
+   "expected": [
+    {
+     "hub": "SEA",
+     "airline_in": "AS",
+     "airline_out": "AS",
+     "arrival_hour": 8,
+     "month": 6,
+     "layover_min": 64
+    }
+   ],
+   "parsed": [
+    {
+     "hub": "SEA",
+     "airline_in": "AS",
+     "airline_out": "AS",
+     "arrival_hour": 8,
+     "month": 6,
+     "layover_min": 64
+    }
+   ],
+   "error": null,
+   "exact": true
+  },
+  {
+   "id": "i22",
+   "expected": [
+    {
+     "hub": "PHL",
+     "airline_in": "AA",
+     "airline_out": "AA",
+     "arrival_hour": 7,
+     "month": 5,
+     "layover_min": 49
+    }
+   ],
+   "parsed": null,
+   "error": "Found 0 flights in this text; a connection needs two.",
+   "exact": false
+  },
+  {
+   "id": "i23",
+   "expected": [
+    {
+     "hub": "MIA",
+     "airline_in": "AA",
+     "airline_out": "AA",
+     "arrival_hour": 11,
+     "month": 1,
+     "layover_min": 71
+    }
+   ],
+   "parsed": [
+    {
+     "hub": "MIA",
+     "airline_in": "AA",
+     "airline_out": "AA",
+     "arrival_hour": 11,
+     "month": 1,
+     "layover_min": 71
+    }
+   ],
+   "error": null,
+   "exact": true
+  },
+  {
+   "id": "i24",
+   "expected": [
+    {
+     "hub": "DTW",
+     "airline_in": "DL",
+     "airline_out": "DL",
+     "arrival_hour": 15,
+     "month": 10,
+     "layover_min": 65
+    }
+   ],
+   "parsed": [
+    {
+     "hub": "DTW",
+     "airline_in": "DL",
+     "airline_out": "DL",
+     "arrival_hour": 15,
+     "month": 10,
+     "layover_min": 65
+    }
+   ],
+   "error": null,
+   "exact": true
+  },
+  {
+   "id": "i25",
+   "expected": [
+    {
+     "hub": "IAH",
+     "airline_in": "UA",
+     "airline_out": "UA",
+     "arrival_hour": 10,
+     "month": 12,
+     "layover_min": 65
+    }
+   ],
+   "parsed": [
+    {
+     "hub": "IAH",
+     "airline_in": "UA",
+     "airline_out": "UA",
+     "arrival_hour": 10,
+     "month": 12,
+     "layover_min": 65
+    }
+   ],
+   "error": null,
+   "exact": true
+  },
+  {
+   "id": "i26",
+   "expected": [
+    {
+     "hub": "MDW",
+     "airline_in": "WN",
+     "airline_out": "WN",
+     "arrival_hour": 7,
+     "month": 9,
+     "layover_min": 35
+    }
+   ],
+   "parsed": [
+    {
+     "hub": "MDW",
+     "airline_in": "WN",
+     "airline_out": "WN",
+     "arrival_hour": 7,
+     "month": 9,
+     "layover_min": 35
+    }
+   ],
+   "error": null,
+   "exact": true
+  },
+  {
+   "id": "i27",
+   "expected": [
+    {
+     "hub": "BWI",
+     "airline_in": "WN",
+     "airline_out": "WN",
+     "arrival_hour": 13,
+     "month": 4,
+     "layover_min": 170
+    }
+   ],
+   "parsed": [
+    {
+     "hub": "BWI",
+     "airline_in": "WN",
+     "airline_out": "WN",
+     "arrival_hour": 13,
+     "month": 4,
+     "layover_min": 170
+    }
+   ],
+   "error": null,
+   "exact": true
+  },
+  {
+   "id": "i28",
+   "expected": [
+    {
+     "hub": "JFK",
+     "airline_in": "B6",
+     "airline_out": "B6",
+     "arrival_hour": 10,
+     "month": 2,
+     "layover_min": 75
+    }
+   ],
+   "parsed": null,
+   "error": "Found 0 flights in this text; a connection needs two.",
+   "exact": false
+  },
+  {
+   "id": "i29",
+   "expected": [
+    {
+     "hub": "SFO",
+     "airline_in": "UA",
+     "airline_out": "UA",
+     "arrival_hour": 7,
+     "month": 7,
+     "layover_min": 58
+    },
+    {
+     "hub": "DEN",
+     "airline_in": "UA",
+     "airline_out": "WN",
+     "arrival_hour": 12,
+     "month": 7,
+     "layover_min": 75
+    }
+   ],
+   "parsed": [
+    {
+     "hub": "SFO",
+     "airline_in": "UA",
+     "airline_out": "UA",
+     "arrival_hour": 7,
+     "month": 7,
+     "layover_min": 58
+    },
+    {
+     "hub": "DEN",
+     "airline_in": "UA",
+     "airline_out": "WN",
+     "arrival_hour": 12,
+     "month": 7,
+     "layover_min": 75
+    }
+   ],
+   "error": null,
+   "exact": true
+  },
+  {
+   "id": "i30",
+   "expected": [
+    {
+     "hub": "DFW",
+     "airline_in": "AA",
+     "airline_out": "AA",
+     "arrival_hour": 23,
+     "month": 12,
+     "layover_min": 52
+    }
+   ],
+   "parsed": [
+    {
+     "hub": "DFW",
+     "airline_in": "AA",
+     "airline_out": "AA",
+     "arrival_hour": 23,
+     "month": 12,
+     "layover_min": 52
+    }
+   ],
+   "error": null,
+   "exact": true
+  }
+ ]
+}

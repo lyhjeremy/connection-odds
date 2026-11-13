@@ -1,0 +1,1354 @@
+{
+ "agent": [
+  {
+   "id": "i17",
+   "text": "Hi Jordan, your trip is confirmed! Confirmation #: QW7RTZ\nSeats 14C / 22A. Checked bags: 1 ($35).\nLeg 1 | JetBlue 515 | Boston Logan (BOS) -> Fort Lauderdale (FLL)\nDeparts Fri, Jan 9, 2026 at 5:59 PM | Arrives 9:17 PM\nLeg 2 | JetBlue 1691 | FLL -> San Juan (SJU)\nDeparts 10:15 PM | Arrives Sat 1:58 AM\nTotal travel time 8h 59m",
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "FLL",
+     "direct": 30.9,
+     "agent": 30.9,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "status": "ok",
+   "first_status": "invalid",
+   "errors": [],
+   "first_errors": [
+    "leg 2: arrival cannot read date 'Sat'"
+   ],
+   "draft": "Your connection at Fort Lauderdale (FLL) has a 58-minute layover, and the model gives it a 30.9% chance of being missed. The model covers this connection. These figures assume a 20-minute walk between gates and come from US flights between September 2023 and August 2026.",
+   "draft_unsourced": [],
+   "answer": "Your connection at Fort Lauderdale (FLL) has a 58-minute layover, and the model gives it a 30.9% chance of being missed. The model covers this connection. These figures assume a 20-minute walk between gates and come from US flights between September 2023 and August 2026."
+  }
+ ],
+ "baseline": [
+  {
+   "id": "i01",
+   "connections": 1,
+   "layover_ok": 1,
+   "risk_given": 1,
+   "covered": 1,
+   "risk_abs_err": [
+    10.0
+   ],
+   "numbers": 10,
+   "unsourced": [
+    "38",
+    "25%"
+   ],
+   "agent_draft_numbers": 7,
+   "agent_draft_unsourced": 0,
+   "answer": "Your single connection is at Chicago O'Hare (ORD): UA 1542 arrives 7:52 AM and UA 2201 departs 8:45 AM, a 53-minute layover. That's tight but usually workable for a same-airline domestic connection, and boarding typically closes about 15 minutes before departure, leaving roughly 38 minutes to reach the gate. I estimate about a 25% chance of missing it, driven by ORD's size, possible terminal or concourse changes, and early-morning delays in March. Note that the trip date (Mar 10, 2026) is already past, so this is only a general estimate, not live status.",
+   "baseline_connections": [
+    {
+     "airport": "ORD",
+     "layover_min": 53,
+     "miss_probability_pct": 25
+    }
+   ],
+   "gold": [
+    {
+     "hub": "ORD",
+     "layover_min": 53,
+     "model": 15.0
+    }
+   ],
+   "cost_usd": 0.008916,
+   "duration_ms": 2834
+  },
+  {
+   "id": "i02",
+   "connections": 1,
+   "layover_ok": 1,
+   "risk_given": 1,
+   "covered": 1,
+   "risk_abs_err": [
+    6.4
+   ],
+   "numbers": 4,
+   "unsourced": [
+    "15%"
+   ],
+   "agent_draft_numbers": 6,
+   "agent_draft_unsourced": 0,
+   "answer": "ATL: 53-minute layover (10:12 arrival, 11:05 departure, both Eastern time). This is a tight but legal same-airline Delta connection at its hub, and I estimate about a 15% chance of missing it. The main risks are a late BOS departure or a long taxi or gate wait at ATL, plus a possible concourse change, which the ATL train makes manageable. Both flights are on one ticket, so Delta would rebook you if you miss it.",
+   "baseline_connections": [
+    {
+     "airport": "ATL",
+     "layover_min": 53,
+     "miss_probability_pct": 15
+    }
+   ],
+   "gold": [
+    {
+     "hub": "ATL",
+     "layover_min": 53,
+     "model": 8.6
+    }
+   ],
+   "cost_usd": 0.0082776,
+   "duration_ms": 4643
+  },
+  {
+   "id": "i06",
+   "connections": 2,
+   "layover_ok": 2,
+   "risk_given": 2,
+   "covered": 2,
+   "risk_abs_err": [
+    23.7,
+    19.2
+   ],
+   "numbers": 8,
+   "unsourced": [
+    "30%",
+    "25%"
+   ],
+   "agent_draft_numbers": 7,
+   "agent_draft_unsourced": 0,
+   "answer": "DTW: 50-minute layover (arrive 09:10, depart 10:00), roughly 30% chance of missing it, since that is tight for a domestic connection, though both flights are Delta and gates at DTW are usually in the same concourse. ATL: 55-minute layover (arrive 12:05, depart 13:00), roughly 25% chance of missing it, since ATL is large and may require the train between concourses, and an inbound delay from the DTW leg would compound. These are estimates without live delay or gate data, and if the first leg runs late, both connections are at risk.",
+   "baseline_connections": [
+    {
+     "airport": "DTW",
+     "layover_min": 50,
+     "miss_probability_pct": 30
+    },
+    {
+     "airport": "ATL",
+     "layover_min": 55,
+     "miss_probability_pct": 25
+    }
+   ],
+   "gold": [
+    {
+     "hub": "DTW",
+     "layover_min": 50,
+     "model": 6.3
+    },
+    {
+     "hub": "ATL",
+     "layover_min": 55,
+     "model": 5.8
+    }
+   ],
+   "cost_usd": 0.006027599999999999,
+   "duration_ms": 3027
+  },
+  {
+   "id": "i07",
+   "connections": 1,
+   "layover_ok": 1,
+   "risk_given": 0,
+   "covered": 0,
+   "risk_abs_err": [],
+   "numbers": 4,
+   "unsourced": [],
+   "agent_draft_numbers": 6,
+   "agent_draft_unsourced": 0,
+   "answer": "DFW: the layover is 65 minutes (10:25am arrival to 11:30am departure). I estimate about a 35% chance of missing it. The risks are that it's tight for a change between American and Alaska, which are different airlines with no through-checked guarantee, and that DFW is huge, so the gates may be in different terminals (AA is mostly Terminal A/C/D, Alaska usually Terminal E or similar). Ask for your bags to be checked through to SEA, and note that an early-morning PHL departure is often on time, which helps.",
+   "baseline_connections": [
+    {
+     "airport": "DFW",
+     "layover_min": 65,
+     "miss_probability_pct": 35
+    }
+   ],
+   "gold": [
+    {
+     "hub": "DFW",
+     "layover_min": 65,
+     "model": null
+    }
+   ],
+   "cost_usd": 0.0056516,
+   "duration_ms": 2696
+  },
+  {
+   "id": "i08",
+   "connections": 1,
+   "layover_ok": 1,
+   "risk_given": 0,
+   "covered": 0,
+   "risk_abs_err": [],
+   "numbers": 11,
+   "unsourced": [
+    "60%",
+    "10",
+    "15",
+    "10",
+    "15"
+   ],
+   "agent_draft_numbers": 7,
+   "agent_draft_unsourced": 0,
+   "answer": "IAD: 25-minute layover (arr 08:05, dep 08:30), same airline, and it's very tight. I estimate roughly a 60% chance of missing it, since boarding usually closes about 10-15 minutes before departure, leaving about 10-15 minutes to get to the gate. Any arrival delay, or a far-apart gate such as a concourse change, makes it worse. The flight is also dated 06/12/2026, which is already in the past, so I can't use live status data, and this is based on schedule times only.",
+   "baseline_connections": [
+    {
+     "airport": "IAD",
+     "layover_min": 25,
+     "miss_probability_pct": 60
+    }
+   ],
+   "gold": [
+    {
+     "hub": "IAD",
+     "layover_min": 25,
+     "model": null
+    }
+   ],
+   "cost_usd": 0.0053876,
+   "duration_ms": 2683
+  },
+  {
+   "id": "i09",
+   "connections": 1,
+   "layover_ok": 1,
+   "risk_given": 0,
+   "covered": 0,
+   "risk_abs_err": [],
+   "numbers": 7,
+   "unsourced": [
+    "15%",
+    "13"
+   ],
+   "agent_draft_numbers": 7,
+   "agent_draft_unsourced": 0,
+   "answer": "ABQ: 45-minute layover (arrive 10:40 AM, depart 11:25 AM, both Mountain time), with an estimated ~15% chance of missing the connection. Both legs are on Southwest and ABQ is small with close gates, so 45 minutes is workable. The main risk is a late inbound flight from HOU. Nov 6 is already past (today is Nov 13), so this is an estimate, not a live check.",
+   "baseline_connections": [
+    {
+     "airport": "ABQ",
+     "layover_min": 45,
+     "miss_probability_pct": 15
+    }
+   ],
+   "gold": [
+    {
+     "hub": "ABQ",
+     "layover_min": 45,
+     "model": null
+    }
+   ],
+   "cost_usd": 0.010441599999999999,
+   "duration_ms": 5769
+  },
+  {
+   "id": "i10",
+   "connections": 1,
+   "layover_ok": 1,
+   "risk_given": 0,
+   "covered": 0,
+   "risk_abs_err": [],
+   "numbers": 7,
+   "unsourced": [
+    "2%"
+   ],
+   "agent_draft_numbers": 9,
+   "agent_draft_unsourced": 0,
+   "answer": "There is one connection, at MCO. The layover is 265 minutes (9:05 AM arrival to 1:30 PM departure), which is a long buffer. I estimate about a 2% chance of missing it, mostly from a major delay or cancellation of B6 1123. Note that the date, Jan 15 2026, is already past, so I can't check real-time status.",
+   "baseline_connections": [
+    {
+     "airport": "MCO",
+     "layover_min": 265,
+     "miss_probability_pct": 2
+    }
+   ],
+   "gold": [
+    {
+     "hub": "MCO",
+     "layover_min": 265,
+     "model": null
+    }
+   ],
+   "cost_usd": 0.0049276,
+   "duration_ms": 1879
+  },
+  {
+   "id": "i12",
+   "connections": 2,
+   "layover_ok": 2,
+   "risk_given": 2,
+   "covered": 2,
+   "risk_abs_err": [
+    10.1,
+    9.399999999999999
+   ],
+   "numbers": 9,
+   "unsourced": [
+    "25%",
+    "25%"
+   ],
+   "agent_draft_numbers": 9,
+   "agent_draft_unsourced": 0,
+   "answer": "ORD outbound: 53-minute layover, about 25% chance of missing it. ORD return: 52-minute layover, about 25%, a bit higher in practice because the LGA departure leg is prone to afternoon delays. Both are tight for a big hub like O'Hare, but they're on United, so you'll likely stay in the same terminal area, and the risk comes mostly from late inbound flights and thunderstorms in May. Also, Wed May 13 and Sun May 17 match 2026, which is already past as of today (Nov 13, 2026), so please check the dates.",
+   "baseline_connections": [
+    {
+     "airport": "ORD",
+     "layover_min": 53,
+     "miss_probability_pct": 25
+    },
+    {
+     "airport": "ORD",
+     "layover_min": 52,
+     "miss_probability_pct": 27
+    }
+   ],
+   "gold": [
+    {
+     "hub": "ORD",
+     "layover_min": 53,
+     "model": 14.9
+    },
+    {
+     "hub": "ORD",
+     "layover_min": 52,
+     "model": 17.6
+    }
+   ],
+   "cost_usd": 0.011433599999999999,
+   "duration_ms": 6305
+  },
+  {
+   "id": "i13",
+   "connections": 1,
+   "layover_ok": 1,
+   "risk_given": 1,
+   "covered": 1,
+   "risk_abs_err": [
+    22.1
+   ],
+   "numbers": 8,
+   "unsourced": [
+    "35%",
+    "30",
+    "15"
+   ],
+   "agent_draft_numbers": 8,
+   "agent_draft_unsourced": 0,
+   "answer": "ATL connection: layover is 60 minutes (arrive 0850, depart 0950), and I estimate roughly a 35% chance of missing it. That's tight for a domestic connection on Spirit, since the flight arrives at the same time boarding typically starts (about 20-30 minutes before departure) and any delay over 15-20 minutes or a far-apart gate makes it very hard. Both flights are on the same ticket, so Spirit should rebook you if you miss it, but Spirit has fewer later flights, so the wait could be long. Note that times are assumed to be local, and ATL and FLL are both Eastern time.",
+   "baseline_connections": [
+    {
+     "airport": "ATL",
+     "layover_min": 60,
+     "miss_probability_pct": 35
+    }
+   ],
+   "gold": [
+    {
+     "hub": "ATL",
+     "layover_min": 60,
+     "model": 12.9
+    }
+   ],
+   "cost_usd": 0.005777599999999999,
+   "duration_ms": 2798
+  },
+  {
+   "id": "i14",
+   "connections": 1,
+   "layover_ok": 1,
+   "risk_given": 1,
+   "covered": 1,
+   "risk_abs_err": [
+    8.2
+   ],
+   "numbers": 5,
+   "unsourced": [],
+   "agent_draft_numbers": 11,
+   "agent_draft_unsourced": 0,
+   "answer": "Your one connection is at LAX (Los Angeles). The layover is 83 minutes, from 8:52 am arrival to 10:15 am departure. I estimate about a 12% chance of missing it. That is a fairly tight connection, and the risk goes up if the SLC\u2013LAX flight is late or you have to change terminals. December 19 is a busy holiday travel day, so I'd keep your bags carry-on if you can.",
+   "baseline_connections": [
+    {
+     "airport": "LAX",
+     "layover_min": 83,
+     "miss_probability_pct": 12
+    }
+   ],
+   "gold": [
+    {
+     "hub": "LAX",
+     "layover_min": 83,
+     "model": 3.8
+    }
+   ],
+   "cost_usd": 0.0051436,
+   "duration_ms": 2312
+  },
+  {
+   "id": "i17",
+   "connections": 1,
+   "layover_ok": 1,
+   "risk_given": 1,
+   "covered": 1,
+   "risk_abs_err": [
+    5.899999999999999
+   ],
+   "numbers": 10,
+   "unsourced": [
+    "25%",
+    "15",
+    "40",
+    "30"
+   ],
+   "agent_draft_numbers": 5,
+   "agent_draft_unsourced": 0,
+   "answer": "FLL: the layover is 58 minutes (arrive 9:17 PM, depart 10:15 PM), and I estimate about a 25% chance of missing the connection. That's tight for a domestic connection with a checked bag, though both flights are on JetBlue, so a miss would be rebooked at no charge. Boarding usually closes about 15 minutes before departure, which leaves roughly 40 minutes to change gates, and a delay of more than about 20-30 minutes on the BOS leg puts the connection at real risk. Also, the travel date (Jan 9, 2026) is already in the past, so this may be an old itinerary; please check the dates if you're planning a current trip.",
+   "baseline_connections": [
+    {
+     "airport": "FLL",
+     "layover_min": 58,
+     "miss_probability_pct": 25
+    }
+   ],
+   "gold": [
+    {
+     "hub": "FLL",
+     "layover_min": 58,
+     "model": 30.9
+    }
+   ],
+   "cost_usd": 0.0121376,
+   "duration_ms": 6664
+  },
+  {
+   "id": "i18",
+   "connections": 1,
+   "layover_ok": 1,
+   "risk_given": 0,
+   "covered": 0,
+   "risk_abs_err": [],
+   "numbers": 6,
+   "unsourced": [
+    "45",
+    "45%"
+   ],
+   "agent_draft_numbers": 5,
+   "agent_draft_unsourced": 0,
+   "answer": "One connection, and it is risky: you land at LGA at 10:20 and depart from JFK at 12:30, a 130-minute layover that includes a cross-town airport change. You would need to collect bags, re-check them if needed, and travel LGA to JFK, which usually takes 45 to 90 minutes or more in traffic. If the tickets are on separate bookings, Delta has no obligation to rebook you if you miss it. I estimate about a 45% chance of missing it, and any inbound delay would raise that.",
+   "baseline_connections": [
+    {
+     "airport": "LGA",
+     "layover_min": 130,
+     "miss_probability_pct": 45
+    }
+   ],
+   "gold": [
+    {
+     "hub": "LGA",
+     "layover_min": 130,
+     "model": null
+    }
+   ],
+   "cost_usd": 0.0072515999999999995,
+   "duration_ms": 4051
+  },
+  {
+   "id": "i21",
+   "connections": 1,
+   "layover_ok": 1,
+   "risk_given": 1,
+   "covered": 1,
+   "risk_abs_err": [
+    0.20000000000000018
+   ],
+   "numbers": 5,
+   "unsourced": [],
+   "agent_draft_numbers": 8,
+   "agent_draft_unsourced": 0,
+   "answer": "One connection, at SEA: arrival 08:41 and departure 09:45 give a 64-minute layover (both times local, same Pacific zone). That is a fairly comfortable domestic connection on the same airline (Alaska, its hub), so I estimate roughly a 7% chance of missing it. The main risks are a late departure from San Diego at 06:00 or a gate change or long taxi at Seattle. This is a judgment-based estimate, not computed from live data.",
+   "baseline_connections": [
+    {
+     "airport": "SEA",
+     "layover_min": 64,
+     "miss_probability_pct": 7
+    }
+   ],
+   "gold": [
+    {
+     "hub": "SEA",
+     "layover_min": 64,
+     "model": 7.2
+    }
+   ],
+   "cost_usd": 0.0051756,
+   "duration_ms": 2356
+  },
+  {
+   "id": "i22",
+   "connections": 1,
+   "layover_ok": 1,
+   "risk_given": 1,
+   "covered": 1,
+   "risk_abs_err": [
+    17.3
+   ],
+   "numbers": 7,
+   "unsourced": [
+    "30%",
+    "15",
+    "34",
+    "15"
+   ],
+   "agent_draft_numbers": 7,
+   "agent_draft_unsourced": 0,
+   "answer": "PHL connection: 49 minutes (arrive 7:21a, depart 8:10a). That's tight. I estimate about a 30% chance of missing it, since the arrival and departure are probably in different concourses and boarding closes about 15 minutes before departure, which leaves you roughly 34 minutes. An early-morning arrival at a hub with a nearby gate would help, and the short Eagle hop from SYR often arrives on time or a little early. If the inbound runs 15+ minutes late, the risk rises sharply. Both flights are on one ticket, so American would rebook you if you missed it.",
+   "baseline_connections": [
+    {
+     "airport": "PHL",
+     "layover_min": 49,
+     "miss_probability_pct": 30
+    }
+   ],
+   "gold": [
+    {
+     "hub": "PHL",
+     "layover_min": 49,
+     "model": 12.7
+    }
+   ],
+   "cost_usd": 0.005649599999999999,
+   "duration_ms": 3009
+  },
+  {
+   "id": "i24",
+   "connections": 1,
+   "layover_ok": 1,
+   "risk_given": 1,
+   "covered": 1,
+   "risk_abs_err": [
+    6.5
+   ],
+   "numbers": 10,
+   "unsourced": [
+    "12%",
+    "11",
+    "13"
+   ],
+   "agent_draft_numbers": 8,
+   "agent_draft_unsourced": 0,
+   "answer": "DTW is your only connection: arrive 3:40PM, depart 4:45PM, a 65-minute layover. Both flights are Delta, so DTW is Delta's hub and the connection is a standard one, though 65 minutes is fairly tight if the inbound runs late. I estimate about a 12% chance of missing it, mostly from inbound delay risk (the flight is about 1h45m gate to gate in the schedule), and DTW is a large airport where you may have to change concourses. Note that the date shown (Thu 08OCT) is already in the past relative to today (2026-11-13), so this estimate is based on typical performance rather than live flight status.",
+   "baseline_connections": [
+    {
+     "airport": "DTW",
+     "layover_min": 65,
+     "miss_probability_pct": 12
+    }
+   ],
+   "gold": [
+    {
+     "hub": "DTW",
+     "layover_min": 65,
+     "model": 5.5
+    }
+   ],
+   "cost_usd": 0.0060436,
+   "duration_ms": 2775
+  },
+  {
+   "id": "i26",
+   "connections": 1,
+   "layover_ok": 1,
+   "risk_given": 1,
+   "covered": 1,
+   "risk_abs_err": [
+    24.9
+   ],
+   "numbers": 9,
+   "unsourced": [],
+   "agent_draft_numbers": 5,
+   "agent_draft_unsourced": 0,
+   "answer": "Your one connection is at MDW (Chicago Midway), with a 35-minute layover (arrive 7:35 AM, depart 8:10 AM). Both flights are on Southwest, so it's a same-airline connection, but 35 minutes is very tight, and boarding typically closes about 10 minutes before departure. I estimate roughly a 35% chance of missing it, mostly from any delay on the early BNA flight, though a same-plane or nearby-gate turn would lower the risk. Note that the flight dates (9/14/2026) are already in the past as of today, so check that these are the dates you meant.",
+   "baseline_connections": [
+    {
+     "airport": "MDW",
+     "layover_min": 35,
+     "miss_probability_pct": 35
+    }
+   ],
+   "gold": [
+    {
+     "hub": "MDW",
+     "layover_min": 35,
+     "model": 10.1
+    }
+   ],
+   "cost_usd": 0.0056776,
+   "duration_ms": 2886
+  },
+  {
+   "id": "i27",
+   "connections": 1,
+   "layover_ok": 1,
+   "risk_given": 1,
+   "covered": 1,
+   "risk_abs_err": [
+    0.0
+   ],
+   "numbers": 5,
+   "unsourced": [],
+   "agent_draft_numbers": 6,
+   "agent_draft_unsourced": 0,
+   "answer": "BWI: your layover is 170 minutes (1:15 PM to 4:05 PM), which is generous. I estimate about a 2% chance of missing the connection, mainly from a major delay or cancellation on WN 488. Southwest doesn't interline bags or require a terminal change here, since both flights use the same airline at BWI. Even a one-hour delay would leave you a comfortable buffer.",
+   "baseline_connections": [
+    {
+     "airport": "BWI",
+     "layover_min": 170,
+     "miss_probability_pct": 2
+    }
+   ],
+   "gold": [
+    {
+     "hub": "BWI",
+     "layover_min": 170,
+     "model": 2.0
+    }
+   ],
+   "cost_usd": 0.0051036,
+   "duration_ms": 2240
+  },
+  {
+   "id": "i28",
+   "connections": 1,
+   "layover_ok": 1,
+   "risk_given": 1,
+   "covered": 1,
+   "risk_abs_err": [
+    0.5999999999999996
+   ],
+   "numbers": 4,
+   "unsourced": [
+    "5"
+   ],
+   "agent_draft_numbers": 11,
+   "agent_draft_unsourced": 0,
+   "answer": "JFK: you land at 10:45 AM and depart at noon, so the layover is 75 minutes. Both flights are on JetBlue, so it's a same-airline connection, probably within Terminal 5. I estimate about a 10% chance of missing it. The risk comes mainly from a late BUF departure, winter weather in early February, or ground delays at JFK. That estimate is based on general patterns, not live data.",
+   "baseline_connections": [
+    {
+     "airport": "JFK",
+     "layover_min": 75,
+     "miss_probability_pct": 10
+    }
+   ],
+   "gold": [
+    {
+     "hub": "JFK",
+     "layover_min": 75,
+     "model": 9.4
+    }
+   ],
+   "cost_usd": 0.0051236,
+   "duration_ms": 2196
+  },
+  {
+   "id": "i29",
+   "connections": 2,
+   "layover_ok": 2,
+   "risk_given": 1,
+   "covered": 1,
+   "risk_abs_err": [
+    14.8
+   ],
+   "numbers": 4,
+   "unsourced": [
+    "30%"
+   ],
+   "agent_draft_numbers": 8,
+   "agent_draft_unsourced": 0,
+   "answer": "SFO: 58-minute layover, same airline (United), tight but usually workable, about 25% chance of missing it. DEN: 75-minute layover, but you switch from United to Southwest (likely separate tickets, concourse change, bag recheck if checked), about 30% chance of missing it. Travel carry-on only, since Southwest won't protect you if United runs late.",
+   "baseline_connections": [
+    {
+     "airport": "SFO",
+     "layover_min": 58,
+     "miss_probability_pct": 25
+    },
+    {
+     "airport": "DEN",
+     "layover_min": 75,
+     "miss_probability_pct": 30
+    }
+   ],
+   "gold": [
+    {
+     "hub": "SFO",
+     "layover_min": 58,
+     "model": 10.2
+    },
+    {
+     "hub": "DEN",
+     "layover_min": 75,
+     "model": null
+    }
+   ],
+   "cost_usd": 0.0096356,
+   "duration_ms": 5326
+  },
+  {
+   "id": "i30",
+   "connections": 1,
+   "layover_ok": 1,
+   "risk_given": 1,
+   "covered": 1,
+   "risk_abs_err": [
+    9.100000000000001
+   ],
+   "numbers": 4,
+   "unsourced": [
+    "30%"
+   ],
+   "agent_draft_numbers": 5,
+   "agent_draft_unsourced": 0,
+   "answer": "DFW: the layover is 52 minutes (arrive 11:58 PM, depart 12:50 AM). I estimate about a 30% chance of missing it. Late-evening LGA departures often run late, and DFW is a huge AA hub where gates can be far apart. The ELP flight is late at night, so there is probably no same-night backup, and a miss likely means rebooking the next day. I can't check live delays or gate assignments, so this is a general estimate.",
+   "baseline_connections": [
+    {
+     "airport": "DFW",
+     "layover_min": 52,
+     "miss_probability_pct": 30
+    }
+   ],
+   "gold": [
+    {
+     "hub": "DFW",
+     "layover_min": 52,
+     "model": 20.9
+    }
+   ],
+   "cost_usd": 0.0052255999999999995,
+   "duration_ms": 2368
+  }
+ ],
+ "rows": [
+  {
+   "id": "i01",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "ORD",
+     "direct": 15.0,
+     "agent": 15.0,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 7,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i02",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "ATL",
+     "direct": 8.6,
+     "agent": 8.6,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 6,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i03",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "CLT",
+     "direct": 16.5,
+     "agent": 16.5,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 7,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i04",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "DEN",
+     "direct": 11.3,
+     "agent": 11.3,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 6,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i05",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [],
+   "e2e_ok": true,
+   "answer_source": "template"
+  },
+  {
+   "id": "i06",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "DTW",
+     "direct": 6.3,
+     "agent": 6.3,
+     "same": true,
+     "stated": true
+    },
+    {
+     "connection": 2,
+     "hub": "ATL",
+     "direct": 5.8,
+     "agent": 5.8,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 7,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i07",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [],
+   "e2e_ok": true,
+   "draft_numbers": 6,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i08",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [],
+   "e2e_ok": true,
+   "draft_numbers": 7,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i09",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [],
+   "e2e_ok": true,
+   "draft_numbers": 7,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i10",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [],
+   "e2e_ok": true,
+   "draft_numbers": 9,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i11",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [],
+   "e2e_ok": true,
+   "draft_numbers": 7,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i12",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "ORD",
+     "direct": 14.9,
+     "agent": 14.9,
+     "same": true,
+     "stated": true
+    },
+    {
+     "connection": 2,
+     "hub": "ORD",
+     "direct": 17.6,
+     "agent": 17.6,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 9,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i13",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "ATL",
+     "direct": 12.9,
+     "agent": 12.9,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 8,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i14",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "LAX",
+     "direct": 3.8,
+     "agent": 3.8,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 11,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i15",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "CLT",
+     "direct": 17.6,
+     "agent": 17.6,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 6,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i16",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "DEN",
+     "direct": 12.8,
+     "agent": 12.8,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 8,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i17",
+   "is_itin_ok": true,
+   "first_status": "invalid",
+   "status": "ok",
+   "repaired": true,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "FLL",
+     "direct": 30.9,
+     "agent": 30.9,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 5,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i18",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [],
+   "e2e_ok": true,
+   "draft_numbers": 5,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i19",
+   "is_itin_ok": true,
+   "first_status": "not_itinerary",
+   "status": "not_itinerary",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [],
+   "e2e_ok": true,
+   "answer_source": "template"
+  },
+  {
+   "id": "i20",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "PHX",
+     "direct": 17.8,
+     "agent": 17.8,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 11,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i21",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "SEA",
+     "direct": 7.2,
+     "agent": 7.2,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 8,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i22",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "PHL",
+     "direct": 12.7,
+     "agent": 12.7,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 7,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i23",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "MIA",
+     "direct": 12.0,
+     "agent": 12.0,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 7,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i24",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "DTW",
+     "direct": 5.5,
+     "agent": 5.5,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 8,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i25",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "IAH",
+     "direct": 6.1,
+     "agent": 6.1,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 8,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i26",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "MDW",
+     "direct": 10.1,
+     "agent": 10.1,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 5,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i27",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "BWI",
+     "direct": 2.0,
+     "agent": 2.0,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 6,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i28",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "JFK",
+     "direct": 9.4,
+     "agent": 9.4,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 11,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i29",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "SFO",
+     "direct": 10.2,
+     "agent": 10.2,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 8,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  },
+  {
+   "id": "i30",
+   "is_itin_ok": true,
+   "first_status": "ok",
+   "status": "ok",
+   "repaired": false,
+   "leg_errors": [],
+   "con_errors": [],
+   "risk": [
+    {
+     "connection": 1,
+     "hub": "DFW",
+     "direct": 20.9,
+     "agent": 20.9,
+     "same": true,
+     "stated": true
+    }
+   ],
+   "e2e_ok": true,
+   "draft_numbers": 5,
+   "draft_unsourced": [],
+   "answer_source": "model"
+  }
+ ]
+}

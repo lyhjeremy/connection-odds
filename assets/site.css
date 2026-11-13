@@ -106,3 +106,12 @@ figcaption { font-size: 13px; color: var(--ink-2); margin-top: 8px; max-width: 6
 .scroll svg { min-width: 560px; }
 footer { margin: 56px 0 0; border-top: 1px solid var(--rule); padding: 18px 0 40px; font-size: 14px; color: var(--ink-2); }
 footer p { margin: 4px 0; max-width: 72ch; }
+
+.paste { padding: 10px 0 0; }
+.paste summary { cursor: pointer; font-size: 14px; color: var(--signal); }
+.paste summary:focus-visible, .paste textarea:focus-visible, .paste button:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+.paste label { display: block; font-size: 13px; color: var(--ink-2); margin: 8px 0 4px; }
+.paste textarea { width: 100%; box-sizing: border-box; font: 13px/1.45 var(--font-mono); color: var(--ink); background: var(--paper); border: 1px solid var(--edge); padding: 6px 8px; border-radius: 0; resize: vertical; }
+.paste button { margin: 8px 0 0; font: 600 14px var(--font-body); color: var(--paper); background: var(--signal); border: 1px solid var(--signal); padding: 7px 12px; border-radius: 0; cursor: pointer; }
+.paste button:hover { background: var(--ink); border-color: var(--ink); }
+.paste .hint { font-size: 12.5px; color: var(--ink-2); margin: 8px 0 0; }
