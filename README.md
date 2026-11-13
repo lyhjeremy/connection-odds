@@ -43,7 +43,7 @@ Results on the 30 itineraries in `eval/itineraries.jsonl` (synthetic, written wi
 | Leg fields right | 366 of 366 | not asked |
 | Connection fields right | 155 of 155 | not asked |
 | Layovers right (20-itinerary subset) | 23 of 23 | 23 of 23 |
-| Miss probability equal to a direct model call | 24 of 24 | 3 of 17 within 2 points, median error 9.4 points |
+| Miss probability equal to a direct model call | 24 of 24 | 3 of 17 within 2 points, 13 more than 2 points too high, 1 more than 2 points too low; median error 9.4 points |
 | Numbers in the reply not found in tool output or itinerary | 0 of 205 | 34 of 137 |
 | API-equivalent cost per itinerary (Claude CLI) | $0.0068 | $0.0070 |
 | Latency, median (p95) | 6.3 s (9.6 s) | 2.8 s (6.3 s) |

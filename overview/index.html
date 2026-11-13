@@ -412,7 +412,9 @@
       probability as a direct model call for all 24 covered connections. A bare Sonnet call with no tools,
       given 20 of the same itineraries, also got every layover right (23 of 23), so parsing was not where it
       failed. Its miss probabilities were: a median of <b>9.4 points</b> from the model's, within 2 points
-      on 3 of 17, and too high on 14 of 17 (30% for a Detroit connection the model puts at 6.3%).
+      on 3 of 17, more than 2 points too high on 13 (30% for a Detroit connection the model puts at 6.3%),
+      and more than 2 points too low on 1 (25% at Fort Lauderdale, where the model says 30.9%).
+      (Corrected 2026-11-13: an earlier version said too high on 14 of 17, counting a 0.6-point miss twice.)
     </p>
     <p>
       The itineraries are synthetic. They and their expected parses were written by the coding agent
