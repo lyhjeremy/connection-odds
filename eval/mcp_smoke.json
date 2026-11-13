@@ -1,0 +1,151 @@
+{
+ "date": "2026-11-13",
+ "server": "connection-odds",
+ "startup_s": 0.33,
+ "tools": [
+  "connection_risk",
+  "parse_legs"
+ ],
+ "calls": [
+  {
+   "tool": "connection_risk",
+   "args": {
+    "hub": "ATL",
+    "airline": "DL",
+    "arrival_hour": 10,
+    "month": 4,
+    "layover_min": 53
+   },
+   "is_error": false,
+   "seconds": 0.02,
+   "result": {
+    "tool": "connection_risk",
+    "hub": "ATL",
+    "airline": "DL",
+    "arrival_hour": 10,
+    "month": 4,
+    "layover_min": 53.0,
+    "walk_min": 20,
+    "door_closes_min": 10,
+    "covered": true,
+    "miss_probability_pct": 8.6,
+    "make_probability_pct": 91.4,
+    "hub_name": "Atlanta",
+    "airline_name": "Delta"
+   }
+  },
+  {
+   "tool": "parse_legs",
+   "args": {
+    "legs": [
+     {
+      "airline": "DL",
+      "flight_number": "DL 2318",
+      "origin": "BOS",
+      "destination": "ATL",
+      "depart_date": "14APR",
+      "depart_time": "0715",
+      "arrive_date": null,
+      "arrive_time": "1012"
+     },
+     {
+      "airline": "DL",
+      "flight_number": "DL 1544",
+      "origin": "ATL",
+      "destination": "MSY",
+      "depart_date": "14APR",
+      "depart_time": "1105",
+      "arrive_date": null,
+      "arrive_time": "1158"
+     }
+    ]
+   },
+   "is_error": false,
+   "seconds": 0.0,
+   "result": {
+    "status": "ok",
+    "legs": [
+     {
+      "leg": 1,
+      "airline": "DL",
+      "flight": "2318",
+      "origin": "BOS",
+      "destination": "ATL",
+      "depart": "2026-04-14 07:15",
+      "arrive": "2026-04-14 10:12"
+     },
+     {
+      "leg": 2,
+      "airline": "DL",
+      "flight": "1544",
+      "origin": "ATL",
+      "destination": "MSY",
+      "depart": "2026-04-14 11:05",
+      "arrive": "2026-04-14 11:58"
+     }
+    ],
+    "connections": [
+     {
+      "after_leg": 1,
+      "hub": "ATL",
+      "depart_airport": "ATL",
+      "airline_in": "DL",
+      "airline_out": "DL",
+      "arrive": "2026-04-14 10:12",
+      "depart": "2026-04-14 11:05",
+      "arrival_hour": 10,
+      "month": 4,
+      "layover_min": 53
+     }
+    ],
+    "errors": [],
+    "assumptions": [
+     "No year on the itinerary; read the dates as 2026."
+    ],
+    "model_results": [
+     {
+      "tool": "connection_risk",
+      "hub": "ATL",
+      "airline": "DL",
+      "arrival_hour": 10,
+      "month": 4,
+      "layover_min": 53,
+      "walk_min": 20,
+      "door_closes_min": 10,
+      "covered": true,
+      "miss_probability_pct": 8.6,
+      "make_probability_pct": 91.4,
+      "hub_name": "Atlanta",
+      "airline_name": "Delta",
+      "connection": 1,
+      "ms": 0.01
+     }
+    ]
+   }
+  },
+  {
+   "tool": "connection_risk",
+   "args": {
+    "hub": "ABQ",
+    "airline": "WN",
+    "arrival_hour": 10,
+    "month": 11,
+    "layover_min": 45
+   },
+   "is_error": false,
+   "seconds": 0.0,
+   "result": {
+    "tool": "connection_risk",
+    "hub": "ABQ",
+    "airline": "WN",
+    "arrival_hour": 10,
+    "month": 11,
+    "layover_min": 45.0,
+    "walk_min": 20,
+    "door_closes_min": 10,
+    "covered": false,
+    "reason": "ABQ is not one of the 30 hubs in the model"
+   }
+  }
+ ]
+}
